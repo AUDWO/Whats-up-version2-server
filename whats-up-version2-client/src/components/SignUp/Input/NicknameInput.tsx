@@ -90,9 +90,8 @@ const NicknameInput = () => {
         <Requests>사용 가능한 닉네임인지 확인해주세요!(최대 15자)</Requests>
       )}
       {!isLoading &&
-        nicknamePassCondition.click &&
         !nicknamePassCondition.isFocused &&
-        nicknameOverlapCheck &&
+        nicknamePassCondition.click &&
         nicknameRequestMessage}
     </Label>
   );
