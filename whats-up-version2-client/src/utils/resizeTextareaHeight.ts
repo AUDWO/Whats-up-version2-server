@@ -1,15 +1,15 @@
 import { MutableRefObject } from "react";
 
-const handleResizeHeight = (
+const resizeTextareaHeight = (
   e: React.ChangeEvent<HTMLTextAreaElement>,
   textarea: MutableRefObject<HTMLTextAreaElement>,
-  setContent: (content: string) => void
+  callback: () => void
 ) => {
-  setContent(e.target.value);
+  callback();
   if (textarea.current) {
     textarea.current.style.height = "auto"; //height 초기화
     textarea.current.style.height = textarea.current.scrollHeight + "px";
   }
 };
 
-export default handleResizeHeight;
+export default resizeTextareaHeight;
