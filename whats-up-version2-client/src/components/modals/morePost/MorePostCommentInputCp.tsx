@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, MutableRefObject, useRef, useState } from "react";
 import useCustomMutation from "@/customHooks/queryCustomHooks/useCustomMutation";
 import { postComment } from "@/apis/comment/postApis";
-
+import resizeTextareaHeight from "@/utils/resizeTextareaHeight";
 interface Props {
   postId: number;
 }
@@ -11,14 +11,6 @@ const MorePostCommentInputCp = ({ postId }: Props) => {
   const [content, setContent] = useState("");
 
   const textarea = useRef<HTMLTextAreaElement>(null);
-
-  const handleResizeHeight = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
-    if (textarea.current) {
-      textarea.current.style.height = "auto"; //height 초기화
-      textarea.current.style.height = textarea.current.scrollHeight + "px";
-    }
-  };
 
   const { mutate: createComment } = useCustomMutation(postComment, [
     `postComment-${postId}`,
@@ -39,7 +31,13 @@ const MorePostCommentInputCp = ({ postId }: Props) => {
     <CommentInputContainer>
       <CommentTextarea
         ref={textarea}
-        onChange={handleResizeHeight}
+        onChange={(e) =>
+          resizeTextareaHeight(
+            e,
+            textarea as MutableRefObject<HTMLTextAreaElement>,
+            () => setContent(e.target.value)
+          )
+        }
         placeholder="댓글을 입력해주세요!"
         value={content}
       />
