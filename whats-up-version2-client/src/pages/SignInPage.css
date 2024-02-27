@@ -1,0 +1,14 @@
+.sign-in_header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sign-up_redirect {
+  margin-left: 10px;
+  color: aqua;
+}
+
+.sign-up_redirect {
+  color: #f7dd07;
+}

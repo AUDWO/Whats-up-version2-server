@@ -1,0 +1,16 @@
+.sign-in_label-email {
+  display: flex;
+  flex-direction: column;
+}
+
+.sign-in_form {
+  width: 350px;
+}
+.sign-in_label-email {
+  margin-bottom: 20px;
+  color: #acacac;
+}
+
+.sign-in_label-password {
+  color: #acacac;
+}
