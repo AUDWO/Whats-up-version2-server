@@ -31,13 +31,12 @@ const NoUserContainer = styled.div`
   width: 280px;
   height: 200px;
   border-radius: 10px;
-  padding-top: 10px;
   margin-top: 30px;
   margin-bottom: 70px;
   background-color: ${(props) => props.theme.bgColor};
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: center;
 `;
 
@@ -63,12 +62,20 @@ const ContentWrapper2 = styled.button`
   align-items: center;
   height: 40px;
   width: 120px;
-  border-radius: 5px;
-  background-color: ${(props) => props.theme.color.sub};
+  border-radius: 8px;
   color: #a3a3a3;
   color: black;
   font-weight: 600;
   color: white;
   border: none;
+  background-color: white;
+  color: ${(props) => props.theme.color.sub};
+  color: black;
+  font-weight: 600;
+  border: 3px solid ${(props) => props.theme.color.main};
   cursor: pointer;
+  margin-bottom: 35px;
+  &:hover {
+    background-color: ${(props) => props.theme.color.main};
+  }
 `;
