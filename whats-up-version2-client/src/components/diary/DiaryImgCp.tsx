@@ -1,6 +1,8 @@
 import styled from "styled-components";
-
-const DiaryImgCp = () => {
+interface Props {
+  img: string;
+}
+const DiaryImgCp = ({ img }: Props) => {
   return (
     <MoreContentImgWrapper>
       <MoreContentImg

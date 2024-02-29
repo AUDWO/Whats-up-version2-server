@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
-const DiaryTitleCp = () => {
+interface Props {
+  title: string;
+}
+const DiaryTitleCp = ({ title }: Props) => {
   return (
     <DiaryTitleWrapper>
       <DiaryTitleText>TITLE :</DiaryTitleText>

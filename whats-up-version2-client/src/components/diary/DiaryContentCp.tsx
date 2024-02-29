@@ -1,5 +1,10 @@
 import styled from "styled-components";
-const DiaryContentCp = () => {
+
+interface Props {
+  content: string;
+}
+
+const DiaryContentCp = ({ content }: Props) => {
   return (
     <MoreContentTextContainer>
       <MoreContentText>

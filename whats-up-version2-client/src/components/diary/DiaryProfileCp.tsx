@@ -1,6 +1,11 @@
 import styled from "styled-components";
+import { ContentUser } from "@/types/userTypes";
 
-const DiaryProfileCp = () => {
+interface Props {
+  userInfo: ContentUser;
+}
+
+const DiaryProfileCp = ({ userInfo }: Props) => {
   return (
     <MoreContentProfileContainer>
       <ProfileWrapper>
