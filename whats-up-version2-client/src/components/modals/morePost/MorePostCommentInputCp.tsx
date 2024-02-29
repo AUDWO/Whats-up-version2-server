@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import { ChangeEvent, MutableRefObject, useRef, useState } from "react";
+import { MutableRefObject, useRef, useState } from "react";
 import useCustomMutation from "@/customHooks/queryCustomHooks/useCustomMutation";
 import { postComment } from "@/apis/comment/postApis";
 import resizeTextareaHeight from "@/utils/resizeTextareaHeight";
+import myInfoQuery from "@/customHooks/queryCustomHooks/myInfoQuery";
 interface Props {
   postId: number;
 }
@@ -12,6 +13,8 @@ const MorePostCommentInputCp = ({ postId }: Props) => {
 
   const textarea = useRef<HTMLTextAreaElement>(null);
 
+  const { data: myInfo } = myInfoQuery();
+
   const { mutate: createComment } = useCustomMutation(postComment, [
     `postComment-${postId}`,
   ]);
@@ -20,6 +23,10 @@ const MorePostCommentInputCp = ({ postId }: Props) => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.stopPropagation();
+    if (atLeastContentLength()) {
+      alert("댓글을 입력해주세요!");
+      return;
+    }
     createComment({
       content: content,
       contentType: "postComment",
@@ -27,10 +34,13 @@ const MorePostCommentInputCp = ({ postId }: Props) => {
     });
   };
 
+  const atLeastContentLength = () => content.length > 1;
+
   return (
     <CommentInputContainer>
       <CommentTextarea
         ref={textarea}
+        readOnly={myInfo?.loginCheck}
         onChange={(e) =>
           resizeTextareaHeight(
             e,
@@ -38,10 +48,19 @@ const MorePostCommentInputCp = ({ postId }: Props) => {
             () => setContent(e.target.value)
           )
         }
-        placeholder="댓글을 입력해주세요!"
+        placeholder={
+          myInfo?.loginCheck
+            ? "댓글을 입력해주세요!"
+            : "로그인 후 이용 가능합니다!"
+        }
         value={content}
       />
-      <CommentInputButton onClick={handlePostComment}>게시</CommentInputButton>
+      <CommentInputButton
+        canSubmit={atLeastContentLength()}
+        onClick={handlePostComment}
+      >
+        게시
+      </CommentInputButton>
     </CommentInputContainer>
   );
 };
@@ -61,13 +80,14 @@ const CommentInputContainer = styled.div`
   background-color: ${(props) => props.theme.bgColor};
 `;
 
-const CommentInputButton = styled.button`
+const CommentInputButton = styled.button<{ canSubmit: boolean }>`
   background-color: white;
   border: none;
-  color: #4199ff;
+  color: ${(props) => (props.canSubmit ? props.theme.color.sub : "#d2e6eb")};
   font-weight: 700;
-  cursor: pointer;
+  cursor: ${(props) => (props.canSubmit ? "pointer" : "")};
   background-color: ${(props) => props.theme.bgColor};
+  margin-bottom: 12px;
 `;
 
 const CommentTextarea = styled.textarea`
