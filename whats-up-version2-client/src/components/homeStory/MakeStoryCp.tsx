@@ -1,15 +1,22 @@
 import styled from "styled-components";
 import { FaPlus } from "react-icons/fa6";
 import useModal from "@/customHooks/useModal";
+import myInfoQuery from "@/customHooks/queryCustomHooks/myInfoQuery";
 const MakeStoryCp = () => {
-  const { onOpen } = useModal("makeStoryMd");
+  const { onOpen: makeStoryMdOpen } = useModal("makeStoryMd");
+  const { onOpen: requestLoginMd } = useModal("requestLoginMd");
+  const { data: myInfo } = myInfoQuery();
   return (
     <Story>
       <StoryProfileContainer>
         <MakeStoryText>Make a story</MakeStoryText>
         <MakeStoryButtonIconWrapper
           onClick={() => {
-            onOpen();
+            if (myInfo?.loginCheck) {
+              makeStoryMdOpen();
+            } else {
+              requestLoginMd();
+            }
           }}
         >
           <MakeStoryButtonIcon />
@@ -32,7 +39,6 @@ const Story = styled.div`
   flex-shrink: 0;
   background-color: #f7dd07;
   position: relative;
-  cursor: pointer;
 `;
 const StoryImg = styled.img`
   width: 100%;
@@ -63,6 +69,7 @@ const MakeStoryButtonIconWrapper = styled.div`
   justify-content: center;
   font-size: 40px;
   font-weight: 700;
+  cursor: pointer;
 `;
 
 const MakeStoryButtonIcon = styled(FaPlus)`

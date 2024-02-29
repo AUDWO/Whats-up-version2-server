@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useRef } from "react";
 import useModal from "@/customHooks/useModal";
-
+import ModalNames from "@/types/ModalNamesTypes";
 interface PropsType {
   children: React.ReactNode;
   atomKey: string;
@@ -10,7 +10,7 @@ interface PropsType {
 //제공하기 위한 컴포넌트
 const ModalBackgroundCp = ({ children, atomKey }: PropsType) => {
   const backgroundRef = useRef<HTMLDivElement>(null);
-  const { onClose } = useModal(atomKey);
+  const { onClose } = useModal(atomKey as ModalNames);
   return (
     <Background
       ref={backgroundRef}

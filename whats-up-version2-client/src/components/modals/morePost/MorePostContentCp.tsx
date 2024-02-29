@@ -24,7 +24,6 @@ const MorePostContentContainer = styled.div`
   padding-left: 20px;
   padding-top: 20px;
   padding-bottom: 20px;
-  background-color: ${(props) => props.theme.bgColor};
 `;
 
 const MorePostContentWrapper = styled.div`

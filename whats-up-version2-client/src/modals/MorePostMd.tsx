@@ -104,7 +104,7 @@ const MorePostInfoContainer = styled.div`
   width: 50%;
   height: 100%;
   position: relative;
-  background-color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.subBgColor};
   @media screen and (max-width: 800px) {
     display: block;
     width: 100%;

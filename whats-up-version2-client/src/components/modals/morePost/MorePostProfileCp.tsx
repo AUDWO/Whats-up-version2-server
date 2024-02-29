@@ -15,12 +15,11 @@ export default MorePostProfileCp;
 
 const MorePostProfileContainer = styled.div`
   display: flex;
-  border-bottom: 1px solid ${(props) => props.theme.borderColor};
+  border-bottom: 1px solid ${(props) => props.theme.subBorderColor};
   align-items: center;
   padding-left: 20px;
   padding-top: 20px;
   padding-bottom: 20px;
-  background-color: ${(props) => props.theme.bgColor};
 `;
 
 const MoreProfileImg = styled.div`

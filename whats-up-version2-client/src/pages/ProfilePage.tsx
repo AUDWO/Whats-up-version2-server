@@ -3,25 +3,34 @@ import ProfileInfoCp from "@components/profile/ProfileInfoCp";
 import ProfileContentsTypeCp from "@components/profile/ProfileContentsTypeCp";
 import MainSideNavCp from "@components/common/mainSideNav/MainSideNavRCP";
 import styled from "styled-components";
+import myInfoQuery from "@/customHooks/queryCustomHooks/myInfoQuery";
+import { GetUserForm } from "@/types/userTypes";
 
 const ProfilePage = () => {
+  const { data: myInfo, isLoading } = myInfoQuery();
+
+  if (isLoading) {
+    return <div>안녕</div>;
+  }
   return (
-    <Container>
+    <Container22>
       <MainSideNavCp />
       <ContentsContainer>
         <MainContents>
-          <ProfileInfoCp />
-          <ProfileContentsTypeCp />
+          <ProfileInfoCp userInfo={myInfo as GetUserForm} />
+          <ProfileContentsTypeCp
+            contentInfo={(myInfo as GetUserForm).contentInfo}
+          />
           <ProfileContentsCp />
         </MainContents>
       </ContentsContainer>
-    </Container>
+    </Container22>
   );
 };
 
 export default ProfilePage;
 
-const Container = styled.div`
+const Container22 = styled.div`
   @media screen and (max-width: 1200px) {
     display: flex;
     justify-content: center;
@@ -39,7 +48,7 @@ const ContentsContainer = styled.div`
     display: flex;
     justify-content: center;
   }
-  @media screen and (max-width: 705px) {
+  @media screen and (max-width: 830px) {
     padding: 0;
   }
 `;

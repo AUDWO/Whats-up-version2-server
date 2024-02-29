@@ -5,6 +5,7 @@ export interface GetUserForm {
   name: string;
   nickname: string;
   password: string;
+  selfIntroduction: string;
   followInfo: FollowInfo;
   contentInfo: UserContentInfo;
   loginCheck: boolean;

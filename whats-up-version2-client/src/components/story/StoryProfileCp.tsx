@@ -1,6 +1,9 @@
+import { ContentUser } from "@/types/userTypes";
 import styled from "styled-components";
-
-const StoryProfileCp = () => {
+interface Props {
+  userInfo: ContentUser;
+}
+const StoryProfileCp = ({ userInfo }: Props) => {
   return (
     <MoreContentProfileContainer>
       <MoreContentProfileImg

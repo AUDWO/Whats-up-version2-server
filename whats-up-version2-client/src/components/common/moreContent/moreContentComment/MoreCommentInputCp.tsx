@@ -58,6 +58,7 @@ const MoreCommentInput = styled.input`
   border-radius: 8px 0px 0px 8px;
   background-color: ${(props) => props.theme.borderColor};
   color: ${(props) => props.theme.fontColor};
+  background-color: #e8e8e8;
 `;
 
 const MoreCommentInputButton = styled.button`
@@ -68,4 +69,5 @@ const MoreCommentInputButton = styled.button`
   color: #4199ff;
   font-weight: 600;
   background-color: ${(props) => props.theme.borderColor};
+  background-color: #e8e8e8;
 `;

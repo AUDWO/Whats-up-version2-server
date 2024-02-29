@@ -5,7 +5,7 @@ import ButtonCp from "@components/common/ButtonCp";
 import MakePostProfileCp from "@components/modals/makePost/MakePostProfileCp";
 import MakePostImgSelectorCp from "@components/modals/makePost/MakePostImgSelectorCp";
 import MakePostSetUpCp from "@components/modals/makePost/MakePostSetUpCp";
-import { useEffect, useState, useRef, MutableRefObject } from "react";
+import { useEffect, useRef, MutableRefObject } from "react";
 
 import useModal from "@/customHooks/useModal";
 import ModalBackgroundCp from "./ModalBackgroundCp";

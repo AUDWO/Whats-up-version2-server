@@ -3,9 +3,16 @@ import ButtonCp from "@components/common/ButtonCp";
 import styled from "styled-components";
 import { IoIosCloseCircle } from "react-icons/io";
 import ModalBackgroundCp from "./ModalBackgroundCp";
+import { useNavigate } from "react-router-dom";
 
 const RequestLoginMd = () => {
   const { onClose } = useModal("requestLoginMd");
+  const navigate = useNavigate();
+
+  const handleSignIn = () => {
+    navigate("/sign-in");
+    onClose();
+  };
 
   return (
     <ModalBackgroundCp atomKey="requestLoginMd">
@@ -17,7 +24,7 @@ const RequestLoginMd = () => {
         </TextWrapper>
         <ButtonWrapper>
           <ButtonCp onClick={onClose}>취소</ButtonCp>
-          <ButtonCp>로그인</ButtonCp>
+          <ButtonCp onClick={handleSignIn}>로그인</ButtonCp>
         </ButtonWrapper>
       </ModalContainer>
     </ModalBackgroundCp>

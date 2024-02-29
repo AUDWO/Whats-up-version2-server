@@ -1,8 +1,13 @@
 import styled from "styled-components";
 import ButtonCp from "@components/common/ButtonCp";
 import FollowInfoCountCp from "./FollowInfoCountCp";
+import { GetUserForm } from "@/types/userTypes";
 
-const ProfileInfoCp = () => {
+interface Props {
+  userInfo: GetUserForm;
+}
+
+const ProfileInfoCp = ({ userInfo }: Props) => {
   return (
     <ProfileInfoContainer>
       <ProfileImgWrapper>
@@ -15,7 +20,7 @@ const ProfileInfoCp = () => {
       <ProfileInfoWrapper>
         <ProfileInfoRealWrapper>
           <ProfileNameWrapper>
-            <ProfileName>Peter_09</ProfileName>
+            <ProfileName>{userInfo.nickname}</ProfileName>
             <ButtonCp backColor={"#4199ff"} fontSize={"15px"}>
               팔로우
             </ButtonCp>

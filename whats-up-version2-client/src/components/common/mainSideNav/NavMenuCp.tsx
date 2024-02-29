@@ -21,13 +21,30 @@ import {
 } from "@/styledComponents/mainSideNav/NavMenuCpStyle";
 
 import SeeMorePopUp from "@/popUp/SeeMorePopUp";
-import { MutableRefObject, forwardRef } from "react";
+import {
+  MutableRefObject,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import setScrollTopToLs from "@/utils/setScrollTopSaveLs";
+import myInfoQuery from "@/customHooks/queryCustomHooks/myInfoQuery";
 
 const NavMenuCp = forwardRef<HTMLDivElement, {}>((props, ref) => {
   const navigate = useNavigate();
 
+  const { data: myInfo } = myInfoQuery();
+  const [loginCheck, setLoginCheck] = useState(false);
+
+  useEffect(() => {
+    if (myInfo && myInfo.loginCheck) {
+      setLoginCheck(true);
+    }
+  }, [myInfo]);
+
   const { onOpen: makePostMdOpen } = useModal("makePostMd");
+  const { onOpen: requestLoginMdOpen } = useModal("requestLoginMd");
 
   const [searchModalOpenState, setSearchModalOpenState] = useRecoilState(
     dependedModalOpenState("searchMd")
@@ -55,7 +72,17 @@ const NavMenuCp = forwardRef<HTMLDivElement, {}>((props, ref) => {
         setSearchModalOpenState(!searchModalOpenState);
       },
     },
-    { icon: <MakePostIcon />, title: "만들기", onClick: makePostMdOpen },
+    {
+      icon: <MakePostIcon />,
+      title: "만들기",
+      onClick: () => {
+        if (myInfo?.loginCheck) {
+          makePostMdOpen();
+        } else {
+          requestLoginMdOpen();
+        }
+      },
+    },
     {
       icon: <DiaryContentsIcon />,
       title: "일기",
@@ -68,16 +95,24 @@ const NavMenuCp = forwardRef<HTMLDivElement, {}>((props, ref) => {
       icon: <KeepDiaryIcon />,
       title: "일기 쓰기",
       onClick: () => {
-        handleClickScrollTopRestore();
-        navigate("/keep-diary");
+        if (myInfo?.loginCheck) {
+          handleClickScrollTopRestore();
+          navigate("/keep-diary");
+        } else {
+          requestLoginMdOpen();
+        }
       },
     },
     {
       icon: <ProfileIcon />,
       title: "프로필",
       onClick: () => {
-        handleClickScrollTopRestore();
-        navigate("/profile");
+        if (myInfo?.loginCheck) {
+          handleClickScrollTopRestore();
+          navigate("/profile/my");
+        } else {
+          requestLoginMdOpen();
+        }
       },
     },
     {

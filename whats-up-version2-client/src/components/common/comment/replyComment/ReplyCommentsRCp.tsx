@@ -1,12 +1,15 @@
 import styled from "styled-components";
 import ReplyCommentRCp from "./ReplyCommentRCp";
-const ReplyCommentsRCp = () => {
+interface Props {
+  contentType: string;
+}
+const ReplyCommentsRCp = ({ contentType }: Props) => {
   return (
     <ReplyCommentsContainer>
-      <ReplyCommentRCp />
-      <ReplyCommentRCp />
-      <ReplyCommentRCp />
-      <ReplyCommentRCp />
+      <ReplyCommentRCp contentType={contentType} />
+      <ReplyCommentRCp contentType={contentType} />
+      <ReplyCommentRCp contentType={contentType} />
+      <ReplyCommentRCp contentType={contentType} />
     </ReplyCommentsContainer>
   );
 };

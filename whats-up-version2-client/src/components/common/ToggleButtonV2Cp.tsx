@@ -1,10 +1,23 @@
 import styled from "styled-components";
 
-const ToggleButtonV2Cp = () => {
+interface Props {
+  inputId: string;
+  toggleValue: boolean;
+  setToggleValue: (toggleValue: boolean) => void;
+}
+const ToggleButtonV2Cp = ({ inputId, toggleValue, setToggleValue }: Props) => {
   return (
     <Container>
-      <AbleCheckbox id={"mm"} type="checkbox" hidden />
-      <ToggleAbleSwitch htmlFor={"mm"}>
+      <AbleCheckbox
+        id={inputId}
+        type="checkbox"
+        hidden
+        checked={toggleValue}
+        onChange={() => {
+          setToggleValue(!toggleValue);
+        }}
+      />
+      <ToggleAbleSwitch htmlFor={inputId}>
         <ToggleAbleButton></ToggleAbleButton>
       </ToggleAbleSwitch>
     </Container>
@@ -46,10 +59,10 @@ export const ToggleAbleButton = styled.span`
 `;
 export const AbleCheckbox = styled.input`
   &:checked + ${ToggleAbleSwitch} {
-    background-color: #4199ff;
+    background-color: ${(props) => props.theme.color.main};
     ${ToggleAbleButton} {
       left: calc(100% - 20px);
-      background-color: #4199ff;
+      background-color: ${(props) => props.theme.color.main};
     }
   }
 `;

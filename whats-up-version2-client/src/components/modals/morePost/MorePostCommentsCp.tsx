@@ -4,11 +4,10 @@ import styled from "styled-components";
 const MorePostCommentsCp = () => {
   return (
     <MorePostCommentsContainer>
-      <CommentRCp />
-      <CommentRCp />
-      <CommentRCp />
-      <CommentRCp />
-      <CommentRCp />
+      <CommentRCp contentType="post" />
+      <CommentRCp contentType="post" />
+      <CommentRCp contentType="post" />
+      <CommentRCp contentType="post" />
       {false && (
         <NoCommentWrapper>
           <NoCommentText>아직 댓글이 존재하지 않습니다.</NoCommentText>
@@ -30,7 +29,7 @@ const MorePostCommentsContainer = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
-  background-color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.subBgColor};
 `;
 
 const NoCommentWrapper = styled.div`

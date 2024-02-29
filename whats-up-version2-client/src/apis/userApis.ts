@@ -1,10 +1,10 @@
 import { GetUserForm } from "@/types/userTypes";
 import getData from "./httpMethods/getData";
 
-export const getMyInfo = () => getData<GetUserForm>(`/user/user-info`);
+export const getMyInfo = () => getData<GetUserForm>(`/user/my-info`);
 //유저 정보 불러올 때
 export const getUserInfo = (userId: number) =>
-  getData<GetUserForm>(`/user/user-info/${userId}`);
+  getData<GetUserForm>(`/user/other-info/${userId}`);
 
 //팔로우 팔로잉 버튼 조건부 렌더링에 필요
 export const getFollowerCheck = (userId: number) =>

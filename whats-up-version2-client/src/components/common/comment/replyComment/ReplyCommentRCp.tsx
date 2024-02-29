@@ -2,8 +2,10 @@ import styled from "styled-components";
 import CommentProfileCp from "../CommentProfileCp";
 import CommentContactCp from "../CommentContactCp";
 import CommentLikeCp from "../CommentLikeCp";
-
-const ReplyCommentRCp = () => {
+interface Props {
+  contentType: string;
+}
+const ReplyCommentRCp = ({ contentType }: Props) => {
   return (
     <CommentContainer>
       <CommentProfileCp />

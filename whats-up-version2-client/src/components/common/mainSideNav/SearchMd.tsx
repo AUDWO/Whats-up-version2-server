@@ -124,6 +124,7 @@ const SearchInput = styled.input`
   outline: none;
   border: none;
   background-color: ${(props) => props.theme.subBgColor};
+  background-color: #efefef;
   color: ${(props) => props.theme.fontColor};
 `;
 

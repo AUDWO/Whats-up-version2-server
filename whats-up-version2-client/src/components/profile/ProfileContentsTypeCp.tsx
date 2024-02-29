@@ -1,16 +1,29 @@
 import styled from "styled-components";
+import { UserContentInfo } from "@/types/userTypes";
+import { useRecoilState } from "recoil";
+import toggleState from "@/store/toggleState";
+interface Props {
+  contentInfo: UserContentInfo;
+}
+const ProfileContentsTypeCp = ({ contentInfo }: Props) => {
+  // const { postCount, diaryCount } = contentInfo;
+  const [contentType, setContentType] = useRecoilState(
+    toggleState("profileContentType")
+  );
 
-const ProfileContentsTypeCp = () => {
+  const handleClickType = () => {
+    setContentType(!contentType);
+  };
   return (
     <ProfileContentsTypeContainer>
       <ProfileTypeSelectContainer>
-        <ProfileTypeContainer>
+        <ProfileTypeContainer onClick={handleClickType} onBorder={contentType}>
           <ProfileTypeTitle>게시물</ProfileTypeTitle>
-          <ProfileContentCountNumber>7</ProfileContentCountNumber>
+          <ProfileContentCountNumber>{1}</ProfileContentCountNumber>
         </ProfileTypeContainer>
-        <ProfileTypeContainer>
+        <ProfileTypeContainer onClick={handleClickType} onBorder={!contentType}>
           <ProfileTypeTitle>일기</ProfileTypeTitle>
-          <ProfileContentCountNumber>7</ProfileContentCountNumber>
+          <ProfileContentCountNumber>{2}</ProfileContentCountNumber>
         </ProfileTypeContainer>
       </ProfileTypeSelectContainer>
     </ProfileContentsTypeContainer>
@@ -32,11 +45,12 @@ const ProfileTypeSelectContainer = styled.div`
   width: 150px;
 `;
 
-const ProfileTypeContainer = styled.div`
+const ProfileTypeContainer = styled.div<{ onBorder: boolean }>`
   display: flex;
   align-items: center;
   height: 25px;
-  border-bottom: 2px solid ${(props) => props.theme.fontColor};
+  ${(props) =>
+    props.onBorder && `border-bottom:2px solid ${props.theme.fontColor}`};
   cursor: pointer;
 `;
 

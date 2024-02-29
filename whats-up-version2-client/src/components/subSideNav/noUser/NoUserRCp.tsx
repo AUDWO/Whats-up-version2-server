@@ -13,7 +13,12 @@ const NoUserRCp = () => {
       >
         로그인
       </ContentWrapper2>
-      <ContentWrapper2
+    </NoUserContainer>
+  );
+};
+
+/*
+ <ContentWrapper2
         onClick={(e) => {
           e.stopPropagation();
           navigate("/sign-up");
@@ -21,10 +26,9 @@ const NoUserRCp = () => {
       >
         회원가입
       </ContentWrapper2>
-    </NoUserContainer>
-  );
-};
 
+
+*/
 export default NoUserRCp;
 
 const NoUserContainer = styled.div`
@@ -35,9 +39,8 @@ const NoUserContainer = styled.div`
   margin-bottom: 70px;
   background-color: ${(props) => props.theme.bgColor};
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
 `;
 
 const ContentWrapper = styled.button`
@@ -61,7 +64,9 @@ const ContentWrapper2 = styled.button`
   justify-content: center;
   align-items: center;
   height: 40px;
-  width: 120px;
+  margin-right: 20px;
+  width: 100%;
+
   border-radius: 8px;
   color: #a3a3a3;
   color: black;
@@ -72,10 +77,13 @@ const ContentWrapper2 = styled.button`
   color: ${(props) => props.theme.color.sub};
   color: black;
   font-weight: 600;
-  border: 3px solid ${(props) => props.theme.color.main};
   cursor: pointer;
   margin-bottom: 35px;
+  font-size: 16px;
+  background-color: yellow;
   &:hover {
-    background-color: ${(props) => props.theme.color.main};
+    color: ${(props) => props.theme.color.main};
   }
 `;
+
+// border: 3px solid ${(props) => props.theme.color.main};

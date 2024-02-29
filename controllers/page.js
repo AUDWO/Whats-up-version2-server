@@ -25,7 +25,79 @@ exports.renderAllUserInfo = async (req, res) => {
     console.error(error, "getAllUser - Error");
   }
 };
+/*
+exports.renderUserInfo2 = async (req, res, next) => {
+  const userId = req.params.userId || req.user.id;
+};
+exports.renderUserInfo = async (req, res, next) => {
+  try {
+    const userId = req.params.userId || req.user.id;
+    const user = await getUserWithFollowersAndFollowings(userId);
+    const posts = await getPostsByUserId(userId);
+    const diaries = await getDiariesByUserId(userId);
 
+    const responseData = {
+      id: user.dataValues.id,
+      name: user.dataValues.name,
+      img: user.dataValues.profileImg,
+      createdAt: user.dataValues.createdAt,
+      nickname: user.dataValues.nickname,
+      email: user.dataValues.email,
+      postslength: posts.length,
+      diarieslength: diaries.length,
+    };
+
+    if (req.params.userId) {
+      responseData.Followers = user.dataValues.Followers;
+      responseData.Followings = user.dataValues.Followings;
+    } else {
+      const loginCheck = req.isAuthenticated();
+      if (!loginCheck) {
+        return res.send({ loginCheck });
+      }
+      responseData.follower = res.locals.followerCount;
+      responseData.following = res.locals.followingCount;
+      responseData.loginCheck = loginCheck;
+    }
+
+    res.send(responseData);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+};
+
+const getUserWithFollowersAndFollowings = (userId) =>
+  User.findOne({
+    where: { id: userId },
+    include: [
+      {
+        model: User,
+        attributes: ["id", "nickname"],
+        as: "Followers",
+      },
+      {
+        model: User,
+        attributes: ["id", "nickname"],
+        as: "Followings",
+      },
+    ],
+  });
+
+const getPostsByUserId = (userId) =>
+  Post.findAll({
+    where: {
+      UserId: userId,
+    },
+  });
+
+const getDiariesByUserId = (userId) =>
+  Diary.findAll({
+    where: {
+      UserId: userId,
+    },
+  });
+*/
 exports.renderUserInfo = async (req, res, next) => {
   const otherUserId = req.params.userId;
 
@@ -108,8 +180,7 @@ exports.renderUserInfo = async (req, res, next) => {
         email: user.dataValues.email,
         follower,
         following,
-        postslength: posts.length,
-        diarieslength: diaries.length,
+        contentInfo: { postCount: posts.length, diaryCount: diaries.length },
         loginCheck,
       });
     } catch (error) {

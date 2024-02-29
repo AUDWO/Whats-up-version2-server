@@ -13,10 +13,13 @@ import styled from "styled-components";
 const DiaryPage = () => {
   const { diaryId } = useParams();
 
-  const { data } = useQuery({
+  const { data: diaryInfo, isLoading } = useQuery({
     queryKey: [`more-diary-${diaryId}`],
     queryFn: () => getOnlyDiary(Number(diaryId)),
   });
+  if (isLoading) {
+    <div>안ㄴ</div>;
+  }
 
   return (
     <div>
@@ -24,14 +27,14 @@ const DiaryPage = () => {
         <MainSideNavCp />
         <MainContentContainer>
           <DiaryContentContainer>
-            <DiaryProfileCp />
-            <DiaryTitleCp />
-            <DiaryImgCp />
-            <DiaryContentCp />
+            <DiaryProfileCp userInfo={diaryInfo!.userInfo} />
+            <DiaryTitleCp title={diaryInfo!.title} />
+            <DiaryImgCp img={diaryInfo!.img} />
+            <DiaryContentCp content={diaryInfo!.content} />
             <MoreContactCp />
           </DiaryContentContainer>
         </MainContentContainer>
-        <MoreCommentsRCp />
+        <MoreCommentsRCp contentType="diary" />
       </Container>
     </div>
   );

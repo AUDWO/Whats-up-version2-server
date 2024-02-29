@@ -1,6 +1,8 @@
 import styled from "styled-components";
-
-const MoreContentCp = () => {
+interface Props {
+  content: string;
+}
+const MoreContentCp = ({ content }: Props) => {
   return (
     <MoreContentTextContainer>
       <MoreContentText>

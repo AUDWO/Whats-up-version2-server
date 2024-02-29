@@ -25,13 +25,13 @@ const StoryPage = () => {
       <MainSideNavCp />
       <MainContentContainer>
         <StoryContentContainer>
-          <StoryProfileCp />
-          <StoryImgCp />
-          <MoreContentCp />
+          <StoryProfileCp userInfo={storyInfo!.userInfo} />
+          <StoryImgCp img={storyInfo!.img} />
+          <MoreContentCp content={storyInfo!.content} />
           <MoreContactCp />
         </StoryContentContainer>
       </MainContentContainer>
-      <MoreCommentsRCp />
+      <MoreCommentsRCp contentType="story" />
     </Container>
   );
 };

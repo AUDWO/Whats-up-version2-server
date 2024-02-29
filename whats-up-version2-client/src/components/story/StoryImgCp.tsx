@@ -1,6 +1,8 @@
 import styled from "styled-components";
-
-const StoryImgCp = () => {
+interface Props {
+  img: string;
+}
+const StoryImgCp = ({ img }: Props) => {
   return (
     <StoryImgWrapper>
       <StoryImg

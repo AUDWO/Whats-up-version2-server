@@ -6,8 +6,10 @@ import CommentLikeCp from "./CommentLikeCp";
 import { useRecoilValue } from "recoil";
 import toggleState from "@/store/toggleState";
 import ReplyCommentsRCp from "./replyComment/ReplyCommentsRCp";
-
-const CommentRCp = () => {
+interface Props {
+  contentType: string;
+}
+const CommentRCp = ({ contentType }: Props) => {
   const replyCommentsOpen = useRecoilValue(toggleState("1"));
   return (
     <CommentContainer>
@@ -16,7 +18,7 @@ const CommentRCp = () => {
         <CommentContentContactCp commentId={1} />
         <CommentLikeCp />
       </CommentWrapper>
-      {replyCommentsOpen && <ReplyCommentsRCp />}
+      {replyCommentsOpen && <ReplyCommentsRCp contentType={contentType} />}
     </CommentContainer>
   );
 };

@@ -45,7 +45,7 @@ const MorePostCommentInputCp = ({ postId }: Props) => {
     <CommentInputContainer>
       <CommentTextarea
         ref={textarea}
-        readOnly={myInfo?.loginCheck}
+        readOnly={!myInfo?.loginCheck}
         onChange={(e) =>
           resizeTextareaHeight(
             e,
@@ -60,12 +60,12 @@ const MorePostCommentInputCp = ({ postId }: Props) => {
         }
         value={content}
       />
-      <CommentInputButton
+      <CommentPostButton
         canSubmit={atLeastContentLength()}
         onClick={handlePostComment}
       >
         게시
-      </CommentInputButton>
+      </CommentPostButton>
     </CommentInputContainer>
   );
 };
@@ -79,30 +79,31 @@ const CommentInputContainer = styled.div`
   width: 100%;
   min-height: 50px;
   display: flex;
+  border-top: 1px solid #363636;
   border-top: 1px solid ${(props) => props.theme.borderColor};
   align-items: center;
   padding-top: 10px;
-  background-color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.subBgColor};
 `;
 
-const CommentInputButton = styled.button<{ canSubmit: boolean }>`
+const CommentPostButton = styled.button<{ canSubmit: boolean }>`
   background-color: white;
   border: none;
   color: ${(props) => (props.canSubmit ? props.theme.color.sub : "#d2e6eb")};
   font-weight: 700;
   cursor: ${(props) => (props.canSubmit ? "pointer" : "")};
-  background-color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.subBgColor};
   margin-bottom: 12px;
 `;
 
 const CommentTextarea = styled.textarea`
   width: 83%;
   outline: none;
-  background-color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.subBgColor};
   border: none;
   padding-left: 20px;
   resize: none;
   &::placeholder {
-    color: "#707070";
+    color: #a5a5a5;
   }
 `;

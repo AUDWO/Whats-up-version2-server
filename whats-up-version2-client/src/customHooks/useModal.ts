@@ -1,14 +1,13 @@
 import modalStore from "@/store/modalStore";
 import viewPortFixedState from "@/store/viewPortFixedState";
 import { useRecoilState, useSetRecoilState } from "recoil";
+import ModalNames from "@/types/ModalNamesTypes";
 
-const useModal = (modalName: string) => {
+const useModal = (modalName: ModalNames) => {
   const [isOpenState, setIsOpenState] = useRecoilState(modalStore);
   const setFixedState = useSetRecoilState(viewPortFixedState);
 
-  type ModalKeys = keyof typeof isOpenState;
-
-  const isOpen = isOpenState[modalName as ModalKeys];
+  const isOpen = isOpenState[modalName as ModalNames];
 
   const onOpen = () => {
     setIsOpenState((prev) => ({

@@ -2,13 +2,18 @@ import styled from "styled-components";
 import MoreCommentCountCp from "./MoreCommentCountCp";
 import MoreCommentInputCp from "./MoreCommentInputCp";
 import MoreCommentCp from "./MoreCommentCp";
-const MoreCommentsRCp = () => {
+
+interface Props {
+  contentType: string;
+}
+
+const MoreCommentsRCp = ({ contentType }: Props) => {
   return (
     <MoreContentCommentsContainer>
       <MoreCommentBackground>
         <MoreCommentsContainer>
           <MoreCommentCountCp />
-          <MoreCommentInputCp contentType="post" contentId={1} />
+          <MoreCommentInputCp contentType={contentType} contentId={1} />
           <MoreCommentsWrapper>
             <MoreCommentCp />
             <MoreCommentCp />
@@ -44,6 +49,7 @@ const MoreCommentBackground = styled.div`
   display: flex;
   justify-content: center;
   background-color: ${(props) => props.theme.bgColor};
+  background-color: #f7f7f7;
 `;
 
 const MoreCommentsContainer = styled.div`
