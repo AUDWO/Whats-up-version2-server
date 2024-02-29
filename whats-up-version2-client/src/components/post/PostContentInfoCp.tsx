@@ -6,8 +6,15 @@ const PostContentInfoCp = () => {
       <PostImg />
       <PostContactV2Cp />
       <PostContentWrapper>
-        <PostContentProfileName>myeon+jae</PostContentProfileName>
-        <PostContent>wd d wd d w w w </PostContent>
+        <PostContent>
+          <PostContentProfileName>myeon+jae</PostContentProfileName>
+          어느날의 퇴근길 풍경입니다:) 며칠 전에 같이 퇴근을 하는데, 앞에 타고
+          계시는 부장님과 동호PD가 사이가 너~무 좋은게 아니겠어요??!!!❤️
+          엄마미소를 지으며 보다가 부랴부랴 사진으로 남겨 놓았는데 사진으로는
+          즐거웠던 분위기가 전달이 안되는거 같네요;; 허허허허 그렇지만!!!!
+          퇴근길 공유 해 봅니다. 월요일 오후시간, 퇴근 생각이 간절하실 우리
+          사원님들!!!! 이번한주도 함께 화이팅해요!!!!!!!!!!☺️✨
+        </PostContent>
       </PostContentWrapper>
     </PostContentInfoContainer>
   );
@@ -36,7 +43,7 @@ const PostImg = styled.img`
 
 const PostContentInfoContainer = styled.div`
   width: 100%;
-  height: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,12 +59,14 @@ const PostContentInfoContainer = styled.div`
 
 const PostContentWrapper = styled.div`
   width: 100%;
-  height: 50px;
+  min-height: 50px;
+  height: auto;
 
   background-color: ${(props) => props.theme.backColor};
-  border: 3px solid #f7dd07;
+
   display: flex;
   algin-items: center;
+  padding-top: 15px;
 
   @media screen and (max-width: 501px) {
     width: 420px;
@@ -72,18 +81,15 @@ const PostContentWrapper = styled.div`
   }
 `;
 
-const PostContentProfileName = styled.div`
-  display: flex;
-  align-items: center;
+const PostContentProfileName = styled.span`
   font-weight: 900;
   font-size: 16px;
   margin-right: 10px;
-  margin-left: 10px;
   color: ${(props) => props.theme.fontColor};
 `;
+
 const PostContent = styled.div`
-  display: flex;
-  align-items: center;
   font-size: 14px;
   color: ${(props) => props.theme.fontColor};
+  line-height: 140%;
 `;

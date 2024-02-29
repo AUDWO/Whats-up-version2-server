@@ -2,15 +2,22 @@ import styled from "styled-components";
 import {
   PostLikeIcon,
   PostCommentIcon,
+  PostFillLikeIcon,
 } from "@components/icons/PostContactIcons";
 import PostCommentMd from "@/modals/MorePostMd";
 import useModal from "@/customHooks/useModal";
+import { useState } from "react";
 const PostContactCp = () => {
   const { onOpen } = useModal("postCommentMd");
+  const [likeClick, setLikeClick] = useState(false);
   return (
     <PostContactContainer>
       <PostContactWrapper>
-        <PostLikeIcon />
+        {likeClick ? (
+          <PostFillLikeIcon onClick={() => setLikeClick(false)} />
+        ) : (
+          <PostLikeIcon onClick={() => setLikeClick(true)} />
+        )}
         <PostContactCountNumber>2</PostContactCountNumber>
       </PostContactWrapper>
       <PostContactWrapper onClick={onOpen}>
@@ -26,6 +33,7 @@ export default PostContactCp;
 const PostContactContainer = styled.div`
   width: 70px;
   height: 100%;
+
   @media screen and (max-width: 501px) {
     display: none;
   }

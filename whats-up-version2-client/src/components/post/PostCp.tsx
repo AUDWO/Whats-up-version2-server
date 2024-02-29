@@ -14,7 +14,7 @@ export default PostCp;
 
 const PostContainer = styled.div`
   width: 480px;
-  height: 630px;
+  height: auto;
   margin-bottom: 100px;
   display: flex;
   @media screen and (max-width: 501px) {
