@@ -4,12 +4,14 @@ import useCustomMutation from "@/customHooks/queryCustomHooks/useCustomMutation"
 import { postComment } from "@/apis/comment/postApis";
 import resizeTextareaHeight from "@/utils/resizeTextareaHeight";
 import myInfoQuery from "@/customHooks/queryCustomHooks/myInfoQuery";
+import useModal from "@/customHooks/useModal";
 interface Props {
   postId: number;
 }
 
 const MorePostCommentInputCp = ({ postId }: Props) => {
   const [content, setContent] = useState("");
+  const { onOpen } = useModal("requestLoginMd");
 
   const textarea = useRef<HTMLTextAreaElement>(null);
 
@@ -23,6 +25,9 @@ const MorePostCommentInputCp = ({ postId }: Props) => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.stopPropagation();
+    if (!myInfo?.loginCheck) {
+      onOpen();
+    }
     if (atLeastContentLength()) {
       alert("댓글을 입력해주세요!");
       return;
