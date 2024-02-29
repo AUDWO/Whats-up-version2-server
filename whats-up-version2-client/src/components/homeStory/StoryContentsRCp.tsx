@@ -24,14 +24,77 @@ const StoryContentsRCp = () => {
       />
       <StoryList ref={storyContentsRef}>
         <MakeStoryCp />
+
         <Link to={`/story/${1}`}>
-          <StoryCp />
+          <StoryCp
+            storyInfo={{
+              id: 1,
+              img: "",
+              content: "content",
+              userInfo: { img: null, nickname: "audwo", id: 1 },
+            }}
+          />
         </Link>
-        <StoryCp />
-        <StoryCp />
-        <StoryCp />
-        <StoryCp />
-        <StoryCp />
+        <Link to={`/story/${1}`}>
+          <StoryCp
+            storyInfo={{
+              id: 1,
+              img: "",
+              content: "content",
+              userInfo: { img: null, nickname: "audwo", id: 1 },
+            }}
+          />
+        </Link>
+        <Link to={`/story/${1}`}>
+          <StoryCp
+            storyInfo={{
+              id: 1,
+              img: "",
+              content: "content",
+              userInfo: { img: null, nickname: "audwo", id: 1 },
+            }}
+          />
+        </Link>
+        <Link to={`/story/${1}`}>
+          <StoryCp
+            storyInfo={{
+              id: 1,
+              img: "",
+              content: "content",
+              userInfo: { img: null, nickname: "audwo", id: 1 },
+            }}
+          />
+        </Link>
+        <Link to={`/story/${1}`}>
+          <StoryCp
+            storyInfo={{
+              id: 1,
+              img: "",
+              content: "content",
+              userInfo: { img: null, nickname: "audwo", id: 1 },
+            }}
+          />
+        </Link>
+        <Link to={`/story/${1}`}>
+          <StoryCp
+            storyInfo={{
+              id: 1,
+              img: "",
+              content: "content",
+              userInfo: { img: null, nickname: "audwo", id: 1 },
+            }}
+          />
+        </Link>
+        <Link to={`/story/${1}`}>
+          <StoryCp
+            storyInfo={{
+              id: 1,
+              img: "",
+              content: "content",
+              userInfo: { img: null, nickname: "audwo", id: 1 },
+            }}
+          />
+        </Link>
       </StoryList>
       <StoryMoreRightButton
         onClick={() => {

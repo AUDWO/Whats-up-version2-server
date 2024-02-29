@@ -1,16 +1,21 @@
+import { ContentUserInfo } from "@/types/userTypes";
+import BasicProfileImgCp from "@components/profile/BasicProfileImgCp";
 import styled from "styled-components";
-
-const MorePostContentCp = () => {
+interface Props {
+  userInfo: ContentUserInfo;
+  subContent: string;
+}
+const MorePostContentCp = ({ userInfo, subContent }: Props) => {
   return (
     <MorePostContentContainer>
       <MoreProfileImgWrapper>
-        <MoreProfileImg />
+        {userInfo.img ? <MoreProfileImg /> : <BasicProfileImgCp width="40px" />}
       </MoreProfileImgWrapper>
       <MorePostContentWrapper>
         <MoreProfileName>liverpool</MoreProfileName>
-        <MorePostContent>
+        <MorePostSubContent>
           안녕하십니까 안녕하십니까wdwdwwdwddwdwdwdw
-        </MorePostContent>
+        </MorePostSubContent>
       </MorePostContentWrapper>
     </MorePostContentContainer>
   );
@@ -32,7 +37,7 @@ const MorePostContentWrapper = styled.div`
   margin-top: 7px;
 `;
 
-const MorePostContent = styled.span`
+const MorePostSubContent = styled.span`
   font-size: 13px;
   white-space: pre-wrap;
   color: ${(props) => props.theme.fontColor};

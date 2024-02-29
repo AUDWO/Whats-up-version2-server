@@ -2,6 +2,18 @@ import styled from "styled-components";
 import ButtonCp from "@components/common/ButtonCp";
 import FollowInfoCountCp from "./FollowInfoCountCp";
 import { GetUserForm } from "@/types/userTypes";
+import { FaUser } from "react-icons/fa";
+const BasicProfileImg = styled(FaUser)`
+  box-sizing: border-box;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  color: ${(props) => props.theme.color.sub};
+  background-color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.subBgColor};
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+`;
 
 interface Props {
   userInfo: GetUserForm;
@@ -11,11 +23,15 @@ const ProfileInfoCp = ({ userInfo }: Props) => {
   return (
     <ProfileInfoContainer>
       <ProfileImgWrapper>
-        <ProfileImg
-          src={
-            "https://i.pinimg.com/564x/93/b2/19/93b219cafc20b93743045ea518192238.jpg"
-          }
-        />
+        {userInfo.img ? (
+          <ProfileImg
+            src={
+              "https://i.pinimg.com/564x/93/b2/19/93b219cafc20b93743045ea518192238.jpg"
+            }
+          />
+        ) : (
+          <BasicProfileImg />
+        )}
       </ProfileImgWrapper>
       <ProfileInfoWrapper>
         <ProfileInfoRealWrapper>

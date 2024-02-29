@@ -1,20 +1,23 @@
-import { Comment } from "@/types/commentTypes";
+import { GetCommentForm } from "@/types/commentTypes";
 import getData from "../httpMethods/getData";
 
 export const getPostComments = (postId: number) =>
-  getData<Comment[]>(`/get/post-comments/${postId}`);
+  getData<GetCommentForm[]>(`/get/post-comments/${postId}`);
 
 export const getStoryComments = (storyId: number) =>
-  getData<Comment[]>(`/get/story-comments/${storyId}`);
+  getData<GetCommentForm[]>(`/get/story-comments/${storyId}`);
 
 export const getDiaryComments = (diaryId: number) =>
-  getData<Comment[]>(`/get/diary-comments/${diaryId}`);
+  getData<GetCommentForm[]>(`/get/diary-comments/${diaryId}`);
+
+export const getComments = (contentId: number, contentType: string) =>
+  getData<GetCommentForm[]>(`/get/${contentType}-comments/${contentId}`);
 
 export const getPostReplyComments = (commentId: number) =>
-  getData<Comment[]>(`/get/post-reply-comments/${commentId}`);
+  getData<GetCommentForm[]>(`/get/post-reply-comments/${commentId}`);
 
 export const getStoryReplyComments = (commentId: number) =>
-  getData<Comment[]>(`/get/story-reply-comments/${commentId}`);
+  getData<GetCommentForm[]>(`/get/story-reply-comments/${commentId}`);
 
 export const getDiaryReplyComments = (commentId: number) =>
-  getData<Comment[]>(`/get/diary-reply-comments/${commentId}`);
+  getData<GetCommentForm[]>(`/get/diary-reply-comments/${commentId}`);

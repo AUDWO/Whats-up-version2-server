@@ -1,9 +1,14 @@
+import { ContentUserInfo } from "@/types/userTypes";
+import BasicProfileImgCp from "@components/profile/BasicProfileImgCp";
 import styled from "styled-components";
 
-const CommentProfileCp = () => {
+interface Props {
+  img: string | null;
+}
+const CommentProfileCp = ({ img }: Props) => {
   return (
     <CommentProfileImgWrapper>
-      <CommentProfileImg />
+      {img ? <CommentProfileImg /> : <BasicProfileImgCp width="40px" />}
     </CommentProfileImgWrapper>
   );
 };

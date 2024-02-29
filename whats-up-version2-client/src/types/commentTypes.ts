@@ -1,10 +1,10 @@
-import { ContentUser } from "./userTypes";
+import { ContentUserInfo } from "./userTypes";
 
-export interface Comment {
+export interface GetCommentForm {
   id: number;
   content: string;
   contactInfo: ContactInfo;
-  userInfo: ContentUser;
+  userInfo: ContentUserInfo;
 }
 
 export interface ContactInfo {

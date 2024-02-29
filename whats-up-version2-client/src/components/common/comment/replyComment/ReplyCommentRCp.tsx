@@ -2,13 +2,16 @@ import styled from "styled-components";
 import CommentProfileCp from "../CommentProfileCp";
 import CommentContactCp from "../CommentContactCp";
 import CommentLikeCp from "../CommentLikeCp";
+import { ContentUserInfo } from "@/types/userTypes";
+import { GetCommentForm } from "@/types/commentTypes";
 interface Props {
   contentType: string;
+  replyCommentInfo: GetCommentForm;
 }
-const ReplyCommentRCp = ({ contentType }: Props) => {
+const ReplyCommentRCp = ({ contentType, replyCommentInfo }: Props) => {
   return (
     <CommentContainer>
-      <CommentProfileCp />
+      <CommentProfileCp img={replyCommentInfo.userInfo.img} />
       <CommentContentContainer>
         <CommentProfileName>liverpool</CommentProfileName>
         <CommentContent>

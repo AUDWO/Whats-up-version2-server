@@ -1,15 +1,29 @@
 import styled from "styled-components";
 import ReplyCommentRCp from "./ReplyCommentRCp";
+import { useQuery } from "@tanstack/react-query";
+import { getPostReplyComments } from "@/apis/comment/getApis";
 interface Props {
   contentType: string;
+  commentId: number;
 }
-const ReplyCommentsRCp = ({ contentType }: Props) => {
+const ReplyCommentsRCp = ({ contentType, commentId }: Props) => {
+  const { data: replyComments, isLoading } = useQuery({
+    queryKey: [`replyComments-${commentId}`],
+    queryFn: () => getPostReplyComments(commentId),
+  });
+
+  if (isLoading) {
+    return <div></div>;
+  }
+
   return (
     <ReplyCommentsContainer>
-      <ReplyCommentRCp contentType={contentType} />
-      <ReplyCommentRCp contentType={contentType} />
-      <ReplyCommentRCp contentType={contentType} />
-      <ReplyCommentRCp contentType={contentType} />
+      {replyComments!.map((replyComment) => (
+        <ReplyCommentRCp
+          contentType={contentType}
+          replyCommentInfo={replyComment}
+        />
+      ))}
     </ReplyCommentsContainer>
   );
 };

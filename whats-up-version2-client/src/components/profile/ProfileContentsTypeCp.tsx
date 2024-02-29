@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { UserContentInfo } from "@/types/userTypes";
+import { UserHasContentInfo } from "@/types/userTypes";
 import { useRecoilState } from "recoil";
 import toggleState from "@/store/toggleState";
 interface Props {
-  contentInfo: UserContentInfo;
+  contentInfo: UserHasContentInfo;
 }
 const ProfileContentsTypeCp = ({ contentInfo }: Props) => {
   // const { postCount, diaryCount } = contentInfo;

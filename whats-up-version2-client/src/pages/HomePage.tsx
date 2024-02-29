@@ -13,6 +13,7 @@ import useScrollTopRestore from "@/customHooks/useScrollTopRestore";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { getAllStory } from "@/apis/storyApis/getApis";
 import { getMyInfo } from "@/apis/userApis";
+import MobileHomePageHeaderCp from "@components/common/MobileHomePageHeaderCp";
 
 const HomePage = () => {
   const fixedState = useRecoilValue(viewPortFixedState);
@@ -48,13 +49,8 @@ const HomePage = () => {
     return (
       <PageContainer>
         {/* HomePageHeader appears when viewport is less than 500px*/}
-        <HomePageHeader>
-          <HeaderIconWrapper>
-            ㄴ
-            <MainIcon />
-          </HeaderIconWrapper>
-          <HeaderTitle>WHAT'S UP</HeaderTitle>
-        </HomePageHeader>
+
+        <MobileHomePageHeaderCp />
         <HomePageContainer viewPortFixed={fixedState}>
           <ScrollContentsContainer ref={scrollContainerRef}>
             <MainSideNavCp ref={scrollContainerRef} />

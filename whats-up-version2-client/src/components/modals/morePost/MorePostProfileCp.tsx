@@ -1,10 +1,14 @@
+import { ContentUserInfo } from "@/types/userTypes";
+import BasicProfileImgCp from "@components/profile/BasicProfileImgCp";
 import styled from "styled-components";
-
-const MorePostProfileCp = () => {
+interface Props {
+  userInfo: ContentUserInfo;
+}
+const MorePostProfileCp = ({ userInfo }: Props) => {
   return (
     <MorePostProfileContainer>
       <MorePostProfileWrapper>
-        <MoreProfileImg />
+        {userInfo.img ? <MoreProfileImg /> : <BasicProfileImgCp width="40px" />}
         <MoreProfileName>Liverpool</MoreProfileName>
       </MorePostProfileWrapper>
     </MorePostProfileContainer>

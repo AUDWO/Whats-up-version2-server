@@ -24,8 +24,8 @@ const DiaryTitleInputCp = () => {
       <DiaryTitleText>Title </DiaryTitleText>
       <DiaryTitleTextArea
         rows={1}
-        onChange={titleOnChange}
         ref={textarea}
+        onChange={titleOnChange}
         placeholder="제목을 입력해주세요."
         value={diaryInfoState.title}
       />
@@ -49,16 +49,16 @@ const DiaryTitleText = styled.div`
 
 const DiaryTitleTextArea = styled.textarea`
   width: 100%;
-  height: auto;
+  padding: 15px 0;
   border: none;
   outline: none;
   resize: none;
   font-size: 20px;
   border-top: 1px solid #c6c6c3;
   border-bottom: 1px solid #c6c6c3;
-  padding-top: 17px;
   color: #acacac;
   background-color: ${(props) => props.theme.bgColor};
+  box-sizing: border-box;
   &::placeholder {
     /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #acacac;

@@ -1,16 +1,21 @@
-import { ContentUser } from "@/types/userTypes";
+import { ContentUserInfo } from "@/types/userTypes";
+import BasicProfileImgCp from "@components/profile/BasicProfileImgCp";
 import styled from "styled-components";
 interface Props {
-  userInfo: ContentUser;
+  userInfo: ContentUserInfo;
 }
 const StoryProfileCp = ({ userInfo }: Props) => {
   return (
     <MoreContentProfileContainer>
-      <MoreContentProfileImg
-        src={
-          "https://m.media-amazon.com/images/I/81FECvP07oL._AC_UF1000,1000_QL80_.jpg"
-        }
-      />
+      {userInfo.img ? (
+        <MoreContentProfileImg
+          src={
+            "https://m.media-amazon.com/images/I/81FECvP07oL._AC_UF1000,1000_QL80_.jpg"
+          }
+        />
+      ) : (
+        <BasicProfileImgCp width="50px" />
+      )}
       <MoreContentProfileName>Peter_099</MoreContentProfileName>
     </MoreContentProfileContainer>
   );

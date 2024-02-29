@@ -14,7 +14,6 @@ import { postPost } from "@/apis/postApis/postApis";
 import { useRecoilState, useRecoilValue } from "recoil";
 import postInfo from "@/store/content/postInfoState";
 import toggleState from "@/store/toggleState";
-
 import resizeTextareaHeight from "@/utils/resizeTextareaHeight";
 
 const MakePostMd = () => {

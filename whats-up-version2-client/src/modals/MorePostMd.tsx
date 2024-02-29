@@ -7,9 +7,20 @@ import MorePostCommentInputCp from "@components/modals/morePost/MorePostCommentI
 import useModal from "@/customHooks/useModal";
 import { CloseIcon } from "@components/icons/CloseIcon";
 import ModalBackgroundCp from "./ModalBackgroundCp";
+import { useQuery } from "@tanstack/react-query";
+import { getOnlyPost } from "@/apis/postApis/getApis";
+import { useRecoilValue } from "recoil";
+import morePostMdIdState from "@/store/content/morePostMdIdState";
 
 const PostCommentMd = () => {
   const { onClose } = useModal("postCommentMd");
+
+  const postId = useRecoilValue(morePostMdIdState);
+
+  const { data: postInfo, isLoading } = useQuery({
+    queryKey: [`morePost-${1}`],
+    queryFn: () => getOnlyPost(postId),
+  });
 
   return (
     <ModalBackgroundCp atomKey="postCommentMd">
@@ -24,9 +35,12 @@ const PostCommentMd = () => {
             />
           </MorePostImgWrapper>
           <MorePostInfoContainer>
-            <MorePostProfileCp />
-            <MorePostContentCp />
-            <MorePostCommentsCp />
+            <MorePostProfileCp userInfo={postInfo!.userInfo} />
+            <MorePostContentCp
+              userInfo={postInfo!.userInfo}
+              subContent={postInfo!.subContent}
+            />
+            <MorePostCommentsCp postId={1} />
             <MorePostCommentInputCp postId={1} />
           </MorePostInfoContainer>
         </MorePostWrapper>

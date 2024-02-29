@@ -1,13 +1,21 @@
+import { getPostComments } from "@/apis/comment/getApis";
 import CommentRCp from "@components/common/comment/CommentRCp";
+import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
-
-const MorePostCommentsCp = () => {
+interface Props {
+  postId: number;
+}
+const MorePostCommentsCp = ({ postId }: Props) => {
+  const { data } = useQuery({
+    queryKey: [`postComments-${postId}`],
+    queryFn: () => getPostComments(postId),
+  });
   return (
     <MorePostCommentsContainer>
-      <CommentRCp contentType="post" />
-      <CommentRCp contentType="post" />
-      <CommentRCp contentType="post" />
-      <CommentRCp contentType="post" />
+      {data?.map((comment) => (
+        <CommentRCp contentType="post" commentInfo={comment} />
+      ))}
+
       {false && (
         <NoCommentWrapper>
           <NoCommentText>아직 댓글이 존재하지 않습니다.</NoCommentText>

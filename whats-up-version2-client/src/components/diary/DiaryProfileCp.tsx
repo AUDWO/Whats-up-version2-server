@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { ContentUser } from "@/types/userTypes";
+import { ContentUserInfo } from "@/types/userTypes";
 
 interface Props {
-  userInfo: ContentUser;
+  userInfo: ContentUserInfo;
 }
 
 const DiaryProfileCp = ({ userInfo }: Props) => {

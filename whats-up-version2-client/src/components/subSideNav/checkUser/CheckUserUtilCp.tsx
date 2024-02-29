@@ -4,7 +4,7 @@ import useCustomMutation from "@/customHooks/queryCustomHooks/useCustomMutation"
 import { postLogout } from "@/apis/authApis";
 
 const CheckUserUtilCp = () => {
-  const { mutate: handleLogout } = useCustomMutation(postLogout);
+  const { mutate: handleLogout } = useCustomMutation(postLogout, ["myInfo"]);
 
   const a = "a";
 

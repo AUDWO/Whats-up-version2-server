@@ -10,6 +10,7 @@ const common = { fontFamily: "Orbitron" };
 const lightTheme = {
   bgColor: "#ffffff",
   subBgColor: "#ffffff",
+  moreCommentsBgColor: "#f7f7f7",
   mdColor: "#ffffff",
   fontColor: "black",
   borderColor: "#dbdbdb",
@@ -24,6 +25,7 @@ const lightTheme = {
 const darkTheme = {
   bgColor: "#000000",
   mdColor: "#262626",
+  moreCommentsBgColor: "#262626",
   subBgColor: "#262626",
   fontColor: "white",
   color,

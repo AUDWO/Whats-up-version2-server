@@ -1,4 +1,4 @@
-import { ContentUser } from "./userTypes";
+import { ContentUserInfo } from "./userTypes";
 
 //get
 export interface GetPostForm {
@@ -8,7 +8,7 @@ export interface GetPostForm {
   subContent: string;
   title: string;
   contactInfo: PostContact;
-  userInfo: ContentUser;
+  userInfo: ContentUserInfo;
 }
 
 export interface PostContact {
@@ -25,7 +25,7 @@ export interface GetStoryForm {
   id: number;
   img: string;
   content: string;
-  userInfo: ContentUser;
+  userInfo: ContentUserInfo;
 }
 
 export interface GetDiaryForm {
@@ -34,7 +34,7 @@ export interface GetDiaryForm {
   content: string;
   img: string;
   contactInfo: DiaryContact;
-  userInfo: ContentUser;
+  userInfo: ContentUserInfo;
 }
 
 export interface DiaryContact {

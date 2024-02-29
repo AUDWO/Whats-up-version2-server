@@ -1,9 +1,12 @@
+import myInfoQuery from "@/customHooks/queryCustomHooks/myInfoQuery";
+import BasicProfileImgCp from "@components/profile/BasicProfileImgCp";
 import styled from "styled-components";
-
 const MakeStoryProfileCp = () => {
+  const { data: myInfo } = myInfoQuery();
+
   return (
     <StoryProfileContainer>
-      <StoryProfileImg />
+      {myInfo!.img ? <StoryProfileImg /> : <BasicProfileImgCp width="35px" />}
       <StoryProfileNameWapper>
         <StoryProfileName>Peter_09</StoryProfileName>
         <MakeStoryText>Make a story</MakeStoryText>

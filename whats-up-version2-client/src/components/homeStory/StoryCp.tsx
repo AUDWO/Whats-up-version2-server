@@ -1,6 +1,10 @@
 import styled from "styled-components";
-
-const StoryCp = () => {
+import { GetStoryForm } from "@/types/contentTypes";
+import BasicProfileImgCp from "@components/profile/BasicProfileImgCp";
+interface Props {
+  storyInfo: GetStoryForm;
+}
+const StoryCp = ({ storyInfo }: Props) => {
   return (
     <Story>
       <StoryImg
@@ -9,7 +13,11 @@ const StoryCp = () => {
         }
       />
       <StoryProfileContainer>
-        <StoryProfileImg />
+        {storyInfo.img ? (
+          <StoryProfileImg />
+        ) : (
+          <BasicProfileImgCp width="35px" padding="3px" />
+        )}
         <StoryProfileName>peterwdwd</StoryProfileName>
       </StoryProfileContainer>
     </Story>
@@ -54,7 +62,6 @@ const StoryProfileImg = styled.img`
   border-radius: 50%;
   width: 38px;
   height: 38px;
-  margin-bottom: 5px;
 `;
 
 const StoryProfileName = styled.span`
@@ -65,4 +72,5 @@ const StoryProfileName = styled.span`
   font-size: 12px;
   font-weight: 700;
   margin: 0 auto;
+  margin-top: 5px;
 `;

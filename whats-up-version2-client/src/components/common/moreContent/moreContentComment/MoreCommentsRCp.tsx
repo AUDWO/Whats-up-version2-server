@@ -2,12 +2,23 @@ import styled from "styled-components";
 import MoreCommentCountCp from "./MoreCommentCountCp";
 import MoreCommentInputCp from "./MoreCommentInputCp";
 import MoreCommentCp from "./MoreCommentCp";
+import { useQuery } from "@tanstack/react-query";
+import {
+  getComments,
+  getDiaryComments,
+  getStoryComments,
+} from "@/apis/comment/getApis";
 
 interface Props {
   contentType: string;
+  contentId: number;
 }
 
-const MoreCommentsRCp = ({ contentType }: Props) => {
+const MoreCommentsRCp = ({ contentType, contentId }: Props) => {
+  const { data: comments } = useQuery({
+    queryKey: [`${contentType}Comments`],
+    queryFn: () => getComments(contentId, contentType),
+  });
   return (
     <MoreContentCommentsContainer>
       <MoreCommentBackground>
@@ -15,12 +26,9 @@ const MoreCommentsRCp = ({ contentType }: Props) => {
           <MoreCommentCountCp />
           <MoreCommentInputCp contentType={contentType} contentId={1} />
           <MoreCommentsWrapper>
-            <MoreCommentCp />
-            <MoreCommentCp />
-            <MoreCommentCp />
-            <MoreCommentCp />
-            <MoreCommentCp />
-            <MoreCommentCp />
+            {comments!.map((comment) => (
+              <MoreCommentCp contentType={contentType} commentInfo={comment} />
+            ))}
           </MoreCommentsWrapper>
         </MoreCommentsContainer>
       </MoreCommentBackground>
@@ -48,8 +56,7 @@ const MoreCommentBackground = styled.div`
   background-color: #f7f7f7;
   display: flex;
   justify-content: center;
-  background-color: ${(props) => props.theme.bgColor};
-  background-color: #f7f7f7;
+  background-color: ${(props) => props.theme.moreCommentsBgColor};
 `;
 
 const MoreCommentsContainer = styled.div`

@@ -1,10 +1,14 @@
 import styled from "styled-components";
 import CommentRCp from "@components/common/comment/CommentRCp";
-
-const MoreCommentCp = () => {
+import { GetCommentForm } from "@/types/commentTypes";
+interface Props {
+  contentType: string;
+  commentInfo: GetCommentForm;
+}
+const MoreCommentCp = ({ contentType, commentInfo }: Props) => {
   return (
     <MoreCommentContainer>
-      <CommentRCp />
+      <CommentRCp contentType={contentType} commentInfo={commentInfo} />
     </MoreCommentContainer>
   );
 };

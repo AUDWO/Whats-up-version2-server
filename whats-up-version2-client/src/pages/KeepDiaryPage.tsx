@@ -2,16 +2,18 @@ import { postDiary } from "@/apis/diaryApis/postApis";
 import useCustomMutation from "@/customHooks/queryCustomHooks/useCustomMutation";
 import diaryInfo from "@/store/content/diaryInfoState";
 import toggleState from "@/store/toggleState";
+import MobileHomePageHeaderCp from "@components/common/MobileHomePageHeaderCp";
 import MainSideNavCp from "@components/common/mainSideNav/MainSideNavRCP";
 import DiaryAdvancedSetUpCp from "@components/keepDiary/DiaryAdvancedSetUpCp";
 import DiaryContentInputCp from "@components/keepDiary/DiaryContentInputCp";
 import DiaryImgSelectCp from "@components/keepDiary/DiaryImgSelectCp";
 import DiaryTitleInputCp from "@components/keepDiary/DiaryTitleInputCp";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue, useResetRecoilState } from "recoil";
 import styled from "styled-components";
 
 const KeepDiaryPage = () => {
-  const [diaryInfoState, setDiaryInfoState] = useRecoilState(diaryInfo);
+  const diaryInfoState = useRecoilValue(diaryInfo);
+  const diaryInfoReset = useResetRecoilState(diaryInfo);
   const diaryAllowLike = useRecoilValue(toggleState("diaryAllowLike"));
   const diaryAllowComment = useRecoilValue(toggleState("diaryAllowComment"));
   const { mutate: createDiary } = useCustomMutation(postDiary);
@@ -31,20 +33,14 @@ const KeepDiaryPage = () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.stopPropagation();
-    setDiaryInfoState({
-      content: "",
-      title: "",
-      img: "",
-      allowLike: false,
-      allowComment: false,
-      allowPublic: false,
-    });
+    diaryInfoReset();
   };
 
   return (
     <Container>
       <MainSideNavCp />
       <MainContents>
+        <MobileHomePageHeaderCp />
         <WriteContainer>
           <DiaryTitleInputCp />
           <DiaryContentInputCp />
@@ -87,6 +83,7 @@ const WriteContainer = styled.div`
   }
   @media screen and (max-width: 512px) {
     width: 100%;
+    margin-top: 70px;
   }
 `;
 
@@ -112,13 +109,13 @@ const Container = styled.div`
   width: 100vw;
   height: auto;
   padding-left: 270px;
-  @media screen and (max-width: 1200px) {
+  @media screen and (max-width: 1330px) {
     padding-left: 100px;
   }
   @media screen and (max-width: 985px) {
     flex-direction: column;
   }
-  @media screen and (max-width: 705px) {
+  @media screen and (max-width: 830px) {
     padding-left: 0;
   }
 `;
@@ -143,7 +140,7 @@ const SettingTextWrapper = styled.div`
   display: flex;
   border-bottom: 1px solid #c6c6c3;
   width: 100%;
-  margin-top: 35px;
+  margin-top: 40px;
   padding-bottom: 5px;
 `;
 

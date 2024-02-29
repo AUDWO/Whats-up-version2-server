@@ -1,4 +1,5 @@
 import { GetUserForm } from "@/types/userTypes";
+import BasicProfileImgCp from "@components/profile/BasicProfileImgCp";
 import styled from "styled-components";
 
 interface Props {
@@ -7,7 +8,11 @@ interface Props {
 const CheckUserProfileCp = ({ myInfo }: Props) => {
   return (
     <CheckUserProfileContainer>
-      <CheckUserProfileImg />
+      {myInfo.img ? (
+        <CheckUserProfileImg />
+      ) : (
+        <BasicProfileImgCp width="40px" />
+      )}
       <CheckUserProfileName>{myInfo.nickname}</CheckUserProfileName>
     </CheckUserProfileContainer>
   );

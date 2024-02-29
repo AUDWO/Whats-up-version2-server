@@ -1,12 +1,15 @@
 import styled from "styled-components";
 import { LuDot } from "react-icons/lu";
+import BasicProfileImgCp from "@components/profile/BasicProfileImgCp";
+import myInfoQuery from "@/customHooks/queryCustomHooks/myInfoQuery";
 
 const MakePostProfileCp = () => {
+  const { data: myInfo } = myInfoQuery();
   return (
     <ProfileContainer>
-      <ProfileImg />
+      {myInfo!.img ? <ProfileImg /> : <BasicProfileImgCp width="45px" />}
       <ProfileNameWrapper>
-        <ProfileName>Peter</ProfileName>
+        <ProfileName>{myInfo!.nickname}</ProfileName>
         <MakePostTextWrapper>
           <MakePostTextDot />
           <MakePostText>make post</MakePostText>

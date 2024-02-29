@@ -11,7 +11,7 @@ const NoUserRCp = () => {
           navigate("/sign-in");
         }}
       >
-        로그인
+        LOGIN / SIGN-UP
       </ContentWrapper2>
     </NoUserContainer>
   );
@@ -66,7 +66,7 @@ const ContentWrapper2 = styled.button`
   height: 40px;
   margin-right: 20px;
   width: 100%;
-
+  font-family: Orbitron;
   border-radius: 8px;
   color: #a3a3a3;
   color: black;
@@ -80,7 +80,6 @@ const ContentWrapper2 = styled.button`
   cursor: pointer;
   margin-bottom: 35px;
   font-size: 16px;
-  background-color: yellow;
   &:hover {
     color: ${(props) => props.theme.color.main};
   }
