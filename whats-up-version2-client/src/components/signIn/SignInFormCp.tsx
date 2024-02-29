@@ -5,6 +5,7 @@ import "./SignInFormCp.css";
 import useCustomMutation from "@/customHooks/queryCustomHooks/useCustomMutation";
 import { postSignIn } from "@/apis/authApis";
 import { useNavigate } from "react-router-dom";
+import userSignInfo from "@/store/userSignInfo";
 
 const LoginFormCp = () => {
   const [signInForm, setSignInForm] = useState({
@@ -23,15 +24,29 @@ const LoginFormCp = () => {
   };
 
   const { mutate: handleSignIn } = useCustomMutation(postSignIn, [], (data) => {
-    navigate("/");
-    setSignInForm({ email: "", password: "" });
+    console.log(data, "SignInResponse");
+    if (data === "discord") {
+      alert("로그인 또는 비밀번호가 일치하지 않습니다.");
+      return;
+    } else {
+      navigate("/");
+      setSignInForm({ email: "", password: "" });
+    }
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    handleSignIn({
-      ...signInForm,
-    });
+    if (signInForm.email.length < 1) {
+      alert("이메일을 입력해주세요!");
+      return;
+    } else if (signInForm.password.length < 1) {
+      alert("비밀번호를 입력해주세요!");
+      return;
+    } else {
+      handleSignIn({
+        ...signInForm,
+      });
+    }
   };
 
   return (
