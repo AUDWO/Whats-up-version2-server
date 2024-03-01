@@ -1,12 +1,18 @@
 import styled from "styled-components";
 import PostCp from "./PostCp";
+import { useQuery } from "@tanstack/react-query";
+import { getAllPost } from "@/apis/postApis/getApis";
 
 const PostContentsRCp = () => {
+  const { data: postContents } = useQuery({
+    queryKey: ["all-post"],
+    queryFn: getAllPost,
+  });
   return (
     <PostsContainer>
-      <PostCp />
-      <PostCp />
-      <PostCp />
+      {postContents?.map((postInfo) => (
+        <PostCp postInfo={postInfo} />
+      ))}
     </PostsContainer>
   );
 };

@@ -4,25 +4,44 @@ import {
   PostCommentIcon,
   PostFillLikeIcon,
 } from "@components/icons/PostContactIcons";
-import PostCommentMd from "@/modals/MorePostMd";
+
 import useModal from "@/customHooks/useModal";
 import { useState } from "react";
-const PostContactCp = () => {
+import { useSetRecoilState } from "recoil";
+import morePostMdIdAtom from "@/store/content/morePostMdIdState";
+import { PostContact } from "@/types/contentTypes";
+
+interface Props {
+  contactInfo: PostContact;
+}
+
+const PostContactCp = ({ contactInfo }: Props) => {
   const { onOpen } = useModal("postCommentMd");
+
+  const setMorePostMdIdState = useSetRecoilState(morePostMdIdAtom);
+
   const [likeClick, setLikeClick] = useState(false);
   return (
     <PostContactContainer>
       <PostContactWrapper>
-        {likeClick ? (
+        {likeClick && contactInfo.allowLike ? (
           <PostFillLikeIcon onClick={() => setLikeClick(false)} />
         ) : (
           <PostLikeIcon onClick={() => setLikeClick(true)} />
         )}
-        <PostContactCountNumber>2</PostContactCountNumber>
+        {!contactInfo.allowLike && <PostLikeIcon />}
+        <PostContactCountNumber>{contactInfo.likeCount}</PostContactCountNumber>
       </PostContactWrapper>
-      <PostContactWrapper onClick={onOpen}>
-        <PostCommentIcon />
-        <PostContactCountNumber>2</PostContactCountNumber>
+      <PostContactWrapper
+        onClick={() => {
+          setMorePostMdIdState(contactInfo.postId);
+          onOpen();
+        }}
+      >
+        {contactInfo.allowComment ? <PostCommentIcon /> : <PostCommentIcon />}
+        <PostContactCountNumber>
+          {contactInfo.commentCount}
+        </PostContactCountNumber>
       </PostContactWrapper>
     </PostContactContainer>
   );

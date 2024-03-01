@@ -1,11 +1,21 @@
 import styled from "styled-components";
 import PostContactCp from "./PostContactCp";
 import PostContentInfoCp from "./PostContentInfoCp";
-const PostCp = () => {
+import { GetPostForm } from "@/types/contentTypes";
+interface Props {
+  postInfo: GetPostForm;
+}
+const PostCp = ({ postInfo }: Props) => {
+  const { img, userInfo, mainContent, contactInfo } = postInfo;
   return (
     <PostContainer>
-      <PostContentInfoCp />
-      <PostContactCp />
+      <PostContentInfoCp
+        img={img}
+        mainContent={mainContent}
+        nickname={userInfo.nickname}
+        contactInfo={contactInfo}
+      />
+      <PostContactCp contactInfo={contactInfo} />
     </PostContainer>
   );
 };
