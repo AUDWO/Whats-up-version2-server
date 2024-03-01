@@ -7,18 +7,34 @@ import MorePostCommentInputCp from "@components/modals/morePost/MorePostCommentI
 import useModal from "@/customHooks/useModal";
 import { CloseIcon } from "@components/icons/CloseIcon";
 import ModalBackgroundCp from "./ModalBackgroundCp";
-import { useQuery } from "@tanstack/react-query";
-import { getOnlyPost } from "@/apis/postApis/getApis";
+
 import { useRecoilValue } from "recoil";
-import morePostMdIdState from "@/store/content/morePostMdIdState";
+import { useQueries, useQuery } from "@tanstack/react-query";
+import { getOnlyPost } from "@/apis/postApis/getApis";
+import { getComments } from "@/apis/comment/getApis";
+import morePostMdIdAtom from "@/store/getContentState/morePostMdIdState";
 
 const PostCommentMd = () => {
   const { onClose } = useModal("postCommentMd");
+  const postId = useRecoilValue(morePostMdIdAtom);
+  /*
+  const results = useQueries({
+    queries: [
+      {
+        queryKey: [`post-$${postId}`],
+        queryFn: () => getOnlyPost(postId),
+        staleTime: Infinity,
+      },
+      {
+        queryKey: [`postComments-${postId}`],
+        queryFn: () => getComments(postId, "post"),
+        staleTime: Infinity,
+      },
+    ],
+  });*/
 
-  const postId = useRecoilValue(morePostMdIdState);
-
-  const { data: postInfo, isLoading } = useQuery({
-    queryKey: [`morePost-${1}`],
+  const { data: postInfo } = useQuery({
+    queryKey: [`postInfo-${postId}`],
     queryFn: () => getOnlyPost(postId),
   });
 
@@ -40,8 +56,8 @@ const PostCommentMd = () => {
               userInfo={postInfo!.userInfo}
               subContent={postInfo!.subContent}
             />
-            <MorePostCommentsCp postId={1} />
-            <MorePostCommentInputCp postId={1} />
+            <MorePostCommentsCp postId={postId} />
+            <MorePostCommentInputCp postId={postId} />
           </MorePostInfoContainer>
         </MorePostWrapper>
       </MorePostContainer>
