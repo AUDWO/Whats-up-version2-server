@@ -1,24 +1,22 @@
 import styled from "styled-components";
 import { GetStoryForm } from "@/types/contentTypes";
 import BasicProfileImgCp from "@components/profile/BasicProfileImgCp";
+import { ContentUserInfo } from "@/types/userTypes";
 interface Props {
-  storyInfo: GetStoryForm;
+  userInfo: ContentUserInfo;
+  img: string;
 }
-const StoryCp = ({ storyInfo }: Props) => {
+const StoryCp = ({ userInfo, img }: Props) => {
   return (
     <Story>
-      <StoryImg
-        src={
-          "https://m.media-amazon.com/images/I/81FECvP07oL._AC_UF1000,1000_QL80_.jpg"
-        }
-      />
+      <StoryImg src={img} />
       <StoryProfileContainer>
-        {storyInfo.img ? (
+        {userInfo.img ? (
           <StoryProfileImg />
         ) : (
           <BasicProfileImgCp width="35px" padding="3px" />
         )}
-        <StoryProfileName>peterwdwd</StoryProfileName>
+        <StoryProfileName>{userInfo.nickname}</StoryProfileName>
       </StoryProfileContainer>
     </Story>
   );
