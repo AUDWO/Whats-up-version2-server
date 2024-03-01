@@ -2,103 +2,47 @@ import styled from "styled-components";
 import StoryCp from "./StoryCp";
 import MakeStoryCp from "./MakeStoryCp";
 import { ArrowDownIcon } from "@components/icons/commonIcons/ArrowDownIcon";
-import { useRef } from "react";
+import { MutableRefObject, useRef } from "react";
 import { Link } from "react-router-dom";
-const StoryContentsRCp = () => {
-  const storyContentsRef = useRef(null);
+import moveScroll from "@/utils/moveScroll";
+import { useQuery } from "@tanstack/react-query";
+import { getAllStory } from "@/apis/storyApis/getApis";
 
-  const moveScroll = (direction: string) => {
-    if (storyContentsRef.current && direction === "left") {
-      (storyContentsRef.current as HTMLDivElement).scrollLeft -= 120;
-    }
-    if (storyContentsRef.current && direction === "right") {
-      (storyContentsRef.current as HTMLDivElement).scrollLeft += 120;
-    }
-  };
+const StoryContentsRCp = () => {
+  const storyContentsRef = useRef<HTMLDivElement>(null);
+
+  const { data: storyContents } = useQuery({
+    queryKey: ["all-story"],
+    queryFn: getAllStory,
+  });
+
   return (
     <StoryContainer>
       <StoryMoreLeftButton
         onClick={() => {
-          moveScroll("left");
+          moveScroll(
+            "left",
+            storyContentsRef as MutableRefObject<HTMLDivElement>
+          );
         }}
       />
       <StoryList ref={storyContentsRef}>
         <MakeStoryCp />
-
-        <Link to={`/story/${1}`}>
-          <StoryCp
-            storyInfo={{
-              id: 1,
-              img: "",
-              content: "content",
-              userInfo: { img: null, nickname: "audwo", id: 1 },
-            }}
-          />
-        </Link>
-        <Link to={`/story/${1}`}>
-          <StoryCp
-            storyInfo={{
-              id: 1,
-              img: "",
-              content: "content",
-              userInfo: { img: null, nickname: "audwo", id: 1 },
-            }}
-          />
-        </Link>
-        <Link to={`/story/${1}`}>
-          <StoryCp
-            storyInfo={{
-              id: 1,
-              img: "",
-              content: "content",
-              userInfo: { img: null, nickname: "audwo", id: 1 },
-            }}
-          />
-        </Link>
-        <Link to={`/story/${1}`}>
-          <StoryCp
-            storyInfo={{
-              id: 1,
-              img: "",
-              content: "content",
-              userInfo: { img: null, nickname: "audwo", id: 1 },
-            }}
-          />
-        </Link>
-        <Link to={`/story/${1}`}>
-          <StoryCp
-            storyInfo={{
-              id: 1,
-              img: "",
-              content: "content",
-              userInfo: { img: null, nickname: "audwo", id: 1 },
-            }}
-          />
-        </Link>
-        <Link to={`/story/${1}`}>
-          <StoryCp
-            storyInfo={{
-              id: 1,
-              img: "",
-              content: "content",
-              userInfo: { img: null, nickname: "audwo", id: 1 },
-            }}
-          />
-        </Link>
-        <Link to={`/story/${1}`}>
-          <StoryCp
-            storyInfo={{
-              id: 1,
-              img: "",
-              content: "content",
-              userInfo: { img: null, nickname: "audwo", id: 1 },
-            }}
-          />
-        </Link>
+        {storyContents?.map((storyInfo) => {
+          const { img, userInfo } = storyInfo;
+          return (
+            <Link to={`/story/${storyInfo.id}`}>
+              <StoryCp userInfo={userInfo} img={img} />
+            </Link>
+          );
+        })}
       </StoryList>
       <StoryMoreRightButton
         onClick={() => {
-          moveScroll("right");
+          moveScroll(
+            "right",
+            storyContentsRef as MutableRefObject<HTMLDivElement>
+          );
         }}
       />
     </StoryContainer>
