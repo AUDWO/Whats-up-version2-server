@@ -11,48 +11,28 @@ import useModal from "@/customHooks/useModal";
 import ModalBackgroundCp from "./ModalBackgroundCp";
 import useCustomMutation from "@/customHooks/queryCustomHooks/useCustomMutation";
 import { postPost } from "@/apis/postApis/postApis";
-import { useRecoilState, useRecoilValue } from "recoil";
-import postInfo from "@/store/content/postInfoState";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
+import postInfo from "@/store/postContentState/postInfoState";
 import toggleState from "@/store/toggleState";
 import resizeTextareaHeight from "@/utils/resizeTextareaHeight";
+import MakePostButtonCp from "@components/modals/makePost/MakePostButtonCp";
 
 const MakePostMd = () => {
   const [postInfoState, setPostInfoState] = useRecoilState(postInfo);
-
+  const resetPostInfo = useResetRecoilState(postInfo);
   const subContentInputOpen = useRecoilValue(
     toggleState("postAllowSubContent")
   );
   const { onClose } = useModal("makePostMd");
 
-  const resetContent = () => {
-    setPostInfoState((prev) => ({
-      ...prev,
-      subContent: "",
-      mainContent: "",
-      img: "",
-    }));
+  const onResetPostInfo = () => {
+    resetPostInfo();
     onClose();
-  };
-
-  const { mutate: createPost } = useCustomMutation(postPost);
-
-  const handleCreatePost = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.stopPropagation();
-    createPost({
-      img: postInfoState.img,
-      subContent: postInfoState.subContent,
-      mainContent: postInfoState.mainContent,
-      allowComment: false,
-      allowSubcontent: false,
-      allowLike: false,
-    });
   };
 
   useEffect(() => {
     return () => {
-      resetContent();
+      onResetPostInfo();
     };
   }, []);
 
@@ -108,12 +88,7 @@ const MakePostMd = () => {
           </PostSubContentWrapper>
         )}
         <MakePostSetUpCp />
-        <MakePostButtonWrapper>
-          <ButtonCp onClick={handleCreatePost}>게시</ButtonCp>
-          <ButtonCp backColor="#ed4956" onClick={resetContent}>
-            삭제
-          </ButtonCp>
-        </MakePostButtonWrapper>
+        <MakePostButtonCp />
       </MakePostContainer>
     </ModalBackgroundCp>
   );
