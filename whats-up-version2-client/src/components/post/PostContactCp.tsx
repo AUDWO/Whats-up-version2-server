@@ -8,14 +8,15 @@ import {
 import useModal from "@/customHooks/useModal";
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
-import morePostMdIdAtom from "@/store/content/morePostMdIdState";
-import { PostContact } from "@/types/contentTypes";
+import { PostContactCount, PostContactAllow } from "@/types/contentTypes";
+import morePostMdIdAtom from "@/store/getContentState/morePostMdIdState";
 
 interface Props {
-  contactInfo: PostContact;
+  contactCountInfo: PostContactCount;
+  contactAllowInfo: PostContactAllow;
 }
 
-const PostContactCp = ({ contactInfo }: Props) => {
+const PostContactCp = ({ contactCountInfo, contactAllowInfo }: Props) => {
   const { onOpen } = useModal("postCommentMd");
 
   const setMorePostMdIdState = useSetRecoilState(morePostMdIdAtom);
@@ -24,23 +25,29 @@ const PostContactCp = ({ contactInfo }: Props) => {
   return (
     <PostContactContainer>
       <PostContactWrapper>
-        {likeClick && contactInfo.allowLike ? (
+        {likeClick && contactAllowInfo.allowLike ? (
           <PostFillLikeIcon onClick={() => setLikeClick(false)} />
         ) : (
           <PostLikeIcon onClick={() => setLikeClick(true)} />
         )}
-        {!contactInfo.allowLike && <PostLikeIcon />}
-        <PostContactCountNumber>{contactInfo.likeCount}</PostContactCountNumber>
+        {contactAllowInfo.allowLike && <PostLikeIcon />}
+        <PostContactCountNumber>
+          {contactCountInfo.likeCount}
+        </PostContactCountNumber>
       </PostContactWrapper>
       <PostContactWrapper
         onClick={() => {
-          setMorePostMdIdState(contactInfo.postId);
+          setMorePostMdIdState(contactAllowInfo.postId);
           onOpen();
         }}
       >
-        {contactInfo.allowComment ? <PostCommentIcon /> : <PostCommentIcon />}
+        {contactAllowInfo.allowComment ? (
+          <PostCommentIcon />
+        ) : (
+          <PostCommentIcon />
+        )}
         <PostContactCountNumber>
-          {contactInfo.commentCount}
+          {contactCountInfo.commentCount}
         </PostContactCountNumber>
       </PostContactWrapper>
     </PostContactContainer>

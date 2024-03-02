@@ -1,26 +1,41 @@
 import styled from "styled-components";
 import PostContactV2Cp from "./PostContactV2Cp";
-import { PostContact } from "@/types/contentTypes";
+import { PostContactAllow, PostContactCount } from "@/types/contentTypes";
+import { ContentUserInfo } from "@/types/userTypes";
+import BasicProfileImgCp from "@components/profile/BasicProfileImgCp";
 
 interface Props {
   img: string;
   mainContent: string;
-  nickname: string;
-  contactInfo: PostContact;
+  contactCountInfo: PostContactCount;
+  contactAllowInfo: PostContactAllow;
+  userInfo: ContentUserInfo;
 }
 const PostContentInfoCp = ({
   img,
   mainContent,
-  nickname,
-  contactInfo,
+  userInfo,
+  contactAllowInfo,
+  contactCountInfo,
 }: Props) => {
   return (
     <PostContentInfoContainer>
+      <PostProfileWrapper>
+        {userInfo.img ? (
+          <PostProfileImg src={userInfo.img} />
+        ) : (
+          <BasicProfileImgCp width="35px" padding="5px" />
+        )}
+        <PostProfileName>{userInfo.nickname}</PostProfileName>
+      </PostProfileWrapper>
       <PostImg src={img} />
-      <PostContactV2Cp contactInfo={contactInfo} />
+      <PostContactV2Cp
+        contactAllowInfo={contactAllowInfo}
+        contactCountInfo={contactCountInfo}
+      />
       <PostContentWrapper>
         <PostContent>
-          <PostContentProfileName>{nickname}</PostContentProfileName>
+          <PostContentProfileName>{userInfo.nickname}</PostContentProfileName>
           {mainContent}
         </PostContent>
       </PostContentWrapper>
@@ -30,10 +45,51 @@ const PostContentInfoCp = ({
 
 export default PostContentInfoCp;
 
+const PostProfileWrapper = styled.div`
+  display: flex;
+  position: absolute;
+  top: 4%;
+  left: 4%;
+  justify-content: center;
+  align-items: center;
+`;
+
+const PostProfileImg = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+`;
+
+const PostProfileName = styled.span`
+  font-size: 14px;
+  font-weight: 500;
+  padding: 3px 6px 3px 6px;
+  background-color: white;
+  border-radius: 5px;
+  margin-left: 10px;
+`;
+
+const PostContentInfoContainer = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  @media screen and (max-width: 501px) {
+    width: 100%;
+  }
+  @media screen and (max-width: 421px) {
+    width: 100%;
+    position: relative;
+    padding-bottom: 166.1%;
+  }
+`;
+
 const PostImg = styled.img`
   width: 100%;
   height: 570px;
-  border-radius: 8px 8px 0px 0px;
+  border-radius: 8px;
   background-color: black;
   @media screen and (max-width: 501px) {
     width: 420px;
@@ -46,22 +102,6 @@ const PostImg = styled.img`
     position: absolute;
     top: 0;
     left: 0;
-  }
-`;
-
-const PostContentInfoContainer = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  @media screen and (max-width: 501px) {
-    width: 100%;
-  }
-  @media screen and (max-width: 421px) {
-    width: 100%;
-    position: relative;
-    padding-bottom: 166.1%;
   }
 `;
 

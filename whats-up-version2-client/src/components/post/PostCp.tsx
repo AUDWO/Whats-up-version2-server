@@ -6,22 +6,26 @@ interface Props {
   postInfo: GetPostForm;
 }
 const PostCp = ({ postInfo }: Props) => {
-  const { img, userInfo, mainContent, contactInfo } = postInfo;
+  const { img, User, mainContent, contactAllowInfo, contactCountInfo } =
+    postInfo;
   return (
     <PostContainer>
       <PostContentInfoCp
         img={img}
         mainContent={mainContent}
-        nickname={userInfo.nickname}
-        contactInfo={contactInfo}
+        userInfo={User}
+        contactCountInfo={contactCountInfo}
+        contactAllowInfo={contactAllowInfo}
       />
-      <PostContactCp contactInfo={contactInfo} />
+      <PostContactCp
+        contactAllowInfo={contactAllowInfo}
+        contactCountInfo={contactCountInfo}
+      />
     </PostContainer>
   );
 };
 
 export default PostCp;
-
 const PostContainer = styled.div`
   width: 480px;
   height: auto;

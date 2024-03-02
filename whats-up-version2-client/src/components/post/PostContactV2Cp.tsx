@@ -6,33 +6,37 @@ import {
 } from "@components/icons/PostContactIcons";
 import useModal from "@/customHooks/useModal";
 import { useState } from "react";
-import { PostContact } from "@/types/contentTypes";
+import { PostContactAllow, PostContactCount } from "@/types/contentTypes";
+
 interface Props {
-  contactInfo: PostContact;
+  contactCountInfo: PostContactCount;
+  contactAllowInfo: PostContactAllow;
 }
-const PostContactV2Cp = ({ contactInfo }: Props) => {
+
+const PostContactV2Cp = ({ contactAllowInfo, contactCountInfo }: Props) => {
+  const { allowComment, allowLike } = contactAllowInfo;
+  const { commentCount, likeCount } = contactCountInfo;
+
   const { onOpen } = useModal("postCommentMd");
   const [likeClick, setLikeClick] = useState(false);
   return (
     <PostContactInfoContainerV2>
       <PostContactWrapper>
-        {likeClick && contactInfo.allowLike ? (
+        {likeClick && allowLike ? (
           <PostFillLikeIcon onClick={() => setLikeClick(false)} />
         ) : (
           <PostLikeIcon onClick={() => setLikeClick(true)} />
         )}
-        {contactInfo.allowLike && <PostLikeIcon />}
-        <PostContactCountNumber>{contactInfo.likeCount}</PostContactCountNumber>
+        {allowLike && <PostLikeIcon />}
+        <PostContactCountNumber>{likeCount}</PostContactCountNumber>
       </PostContactWrapper>
       <PostContactWrapper>
-        {contactInfo.allowComment ? (
+        {allowComment ? (
           <PostCommentIcon onClick={onOpen} />
         ) : (
           <PostCommentIcon />
         )}
-        <PostContactCountNumber>
-          {contactInfo.commentCount}
-        </PostContactCountNumber>
+        <PostContactCountNumber>{commentCount}</PostContactCountNumber>
       </PostContactWrapper>
     </PostContactInfoContainerV2>
   );
