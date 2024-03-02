@@ -26,11 +26,11 @@ const MakePostSetUpCp = () => {
         <PostSetUpDetailsContainer>
           <PostSetUpDetailsWrapper>
             <PostSetUpOptionWrapper>
-              <PostSetUpOptionText>좋아요 기능 해제</PostSetUpOptionText>
+              <PostSetUpOptionText>좋아요 기능 </PostSetUpOptionText>
               <ToggleButtonCp inputId="postAllowLike" />
             </PostSetUpOptionWrapper>
             <PostSetUpOptionWrapper>
-              <PostSetUpOptionText>댓글 기능 해제</PostSetUpOptionText>
+              <PostSetUpOptionText>댓글 기능 </PostSetUpOptionText>
               <ToggleButtonCp inputId="postAllowComment" />
             </PostSetUpOptionWrapper>
             <PostSetUpOptionWrapper>
