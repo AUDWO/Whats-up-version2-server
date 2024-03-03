@@ -1,19 +1,18 @@
 import styled from "styled-components";
 import ReplyCommentRCp from "./ReplyCommentRCp";
 import { useQuery } from "@tanstack/react-query";
-import { getPostReplyComments } from "@/apis/comment/getApis";
+import { getReplyComments } from "@/apis/comment/getApis";
 interface Props {
   contentType: string;
   commentId: number;
 }
 const ReplyCommentsRCp = ({ contentType, commentId }: Props) => {
   const { data: replyComments, isLoading } = useQuery({
-    queryKey: [`replyComments-${commentId}`],
-    queryFn: () => getPostReplyComments(commentId),
+    queryKey: [`${contentType}replyComments`],
+    queryFn: () => getReplyComments(commentId, contentType),
   });
-
   if (isLoading) {
-    return <div></div>;
+    return <Loading>안녕</Loading>;
   }
 
   return (
@@ -34,4 +33,10 @@ const ReplyCommentsContainer = styled.div`
   width: 100%;
   height: auto;
   padding-left: 50px;
+`;
+
+const Loading = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: gray;
 `;

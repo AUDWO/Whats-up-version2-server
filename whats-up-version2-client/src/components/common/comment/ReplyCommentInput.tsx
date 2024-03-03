@@ -1,4 +1,4 @@
-import { postComment, postReplyComment } from "@/apis/comment/postApis";
+import { postReplyComment } from "@/apis/comment/postApis";
 import myInfoQuery from "@/customHooks/queryCustomHooks/myInfoQuery";
 import useCustomMutation from "@/customHooks/queryCustomHooks/useCustomMutation";
 import { useState } from "react";

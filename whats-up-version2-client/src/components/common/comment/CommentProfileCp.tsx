@@ -8,7 +8,7 @@ interface Props {
 const CommentProfileCp = ({ img }: Props) => {
   return (
     <CommentProfileImgWrapper>
-      {img ? <CommentProfileImg /> : <BasicProfileImgCp width="40px" />}
+      {img ? <CommentProfileImg /> : <BasicProfileImgCp width="25px" />}
     </CommentProfileImgWrapper>
   );
 };

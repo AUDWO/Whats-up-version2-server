@@ -12,19 +12,24 @@ interface Props {
   commentInfo: GetCommentForm;
 }
 const CommentRCp = ({ contentType, commentInfo }: Props) => {
-  const replyCommentsOpen = useRecoilValue(toggleState("1"));
+  const { User, id: commentId, content } = commentInfo;
+  const { nickname, img } = User;
+  const replyCommentsOpen = useRecoilValue(
+    toggleState(`replyComments-${commentId}`)
+  );
   return (
     <CommentContainer>
       <CommentWrapper>
-        <CommentProfileCp img={commentInfo.userInfo.img} />
-        <CommentContentContactCp commentId={1} />
+        <CommentProfileCp img={img} />
+        <CommentContentContactCp
+          commentId={commentId}
+          nickname={nickname}
+          content={content}
+        />
         <CommentLikeCp />
       </CommentWrapper>
       {replyCommentsOpen && (
-        <ReplyCommentsRCp
-          contentType={contentType}
-          commentId={commentInfo.id}
-        />
+        <ReplyCommentsRCp contentType={contentType} commentId={commentId} />
       )}
     </CommentContainer>
   );

@@ -2,9 +2,13 @@ import styled from "styled-components";
 import { ReplyCommentOpenIcon } from "@components/icons/ReplyCommentOpen";
 import { useRecoilState } from "recoil";
 import toggleState from "@/store/toggleState";
-const ReplyCommentOpenCp = () => {
+
+interface Props {
+  commentId: number;
+}
+const ReplyCommentOpenCp = ({ commentId }: Props) => {
   const [replyCommentsOpen, setReplyCommentsOpen] = useRecoilState(
-    toggleState("1")
+    toggleState(`replyComments-${commentId}`)
   );
 
   return (
