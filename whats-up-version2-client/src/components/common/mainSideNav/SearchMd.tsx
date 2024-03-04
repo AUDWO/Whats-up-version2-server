@@ -21,60 +21,60 @@ const SearchMd = () => {
         <SearchInput placeholder="검색" />
       </SearchInputWrapper>
       <UserList>
-        <UserWrapper>
-          <UserProfileImg />
-          <UserProfileName>Peter_09</UserProfileName>
-        </UserWrapper>
-        <UserWrapper>
-          <UserProfileImg />
-          <UserProfileName>Peter_09</UserProfileName>
-        </UserWrapper>
-        <UserWrapper>
-          <UserProfileImg />
-          <UserProfileName>Peter_09</UserProfileName>
-        </UserWrapper>
-        <UserWrapper>
-          <UserProfileImg />
-          <UserProfileName>Peter_09</UserProfileName>
-        </UserWrapper>
-        <UserWrapper>
-          <UserProfileImg />
-          <UserProfileName>Peter_09</UserProfileName>
-        </UserWrapper>
-        <UserWrapper>
-          <UserProfileImg />
-          <UserProfileName>Peter_09</UserProfileName>
-        </UserWrapper>
-        <UserWrapper>
-          <UserProfileImg />
-          <UserProfileName>Peter_09</UserProfileName>
-        </UserWrapper>
-        <UserWrapper>
-          <UserProfileImg />
-          <UserProfileName>Peter_09</UserProfileName>
-        </UserWrapper>
-        <UserWrapper>
-          <UserProfileImg />
-          <UserProfileName>Peter_09</UserProfileName>
-        </UserWrapper>
-        <UserWrapper>
-          <UserProfileImg />
-          <UserProfileName>Peter_09</UserProfileName>
-        </UserWrapper>
-        <UserWrapper>
-          <UserProfileImg />
-          <UserProfileName>Peter_09</UserProfileName>
-        </UserWrapper>
-        <UserWrapper>
-          <UserProfileImg />
-          <UserProfileName>Peter_09</UserProfileName>
-        </UserWrapper>
+        <NoSearchCp>검색하신 사용자는{"\n"} 존재하지 않습니다.</NoSearchCp>
       </UserList>
     </SearchMdContainer>
   );
 };
 
 export default SearchMd;
+/*
+<UserWrapper>
+          <UserProfileImg />
+          <UserProfileName>Peter_09</UserProfileName>
+        </UserWrapper>
+        <UserWrapper>
+          <UserProfileImg />
+          <UserProfileName>Peter_09</UserProfileName>
+        </UserWrapper>
+        <UserWrapper>
+          <UserProfileImg />
+          <UserProfileName>Peter_09</UserProfileName>
+        </UserWrapper>
+        <UserWrapper>
+          <UserProfileImg />
+          <UserProfileName>Peter_09</UserProfileName>
+        </UserWrapper>
+        <UserWrapper>
+          <UserProfileImg />
+          <UserProfileName>Peter_09</UserProfileName>
+        </UserWrapper>
+        <UserWrapper>
+          <UserProfileImg />
+          <UserProfileName>Peter_09</UserProfileName>
+        </UserWrapper>
+        <UserWrapper>
+          <UserProfileImg />
+          <UserProfileName>Peter_09</UserProfileName>
+        </UserWrapper>
+        <UserWrapper>
+          <UserProfileImg />
+          <UserProfileName>Peter_09</UserProfileName>
+        </UserWrapper>
+
+*/
+const NoSearchCp = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media screen and (max-width: 830px) {
+    white-space: pre-wrap;
+  }
+  line-height: 200%;
+  text-align: center;
+`;
 
 const SearchMdContainer = styled.div<{ isopen: boolean }>`
   box-shadow: rgba(0, 0, 0, 0.07) 0px 4px 10px 0px;
@@ -87,7 +87,7 @@ const SearchMdContainer = styled.div<{ isopen: boolean }>`
   height: 100vh;
   background-color: ${(props) => props.theme.bgColor};
   transition: transform 0.3s ease-out;
-  @media screen and (max-width: 705px) {
+  @media screen and (max-width: 830px) {
     transform: translateX(${(props) => (props.isopen ? "0" : "-100%")});
     width: 250px;
   }
@@ -132,16 +132,24 @@ const UserList = styled.div`
   width: 100%;
   height: 80%;
   margin-top: 40px;
-  padding-left: 15px;
+  padding-top: 20px;
+
   overflow-y: scroll;
   border-top: 1px solid ${(props) => props.theme.borderColor};
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const UserWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 20px;
-  margin-bottom: 3ㄴ0px;
+  &:hover {
+    background-color: ${(props) => props.theme.borderColor};
+  }
+  cursor: pointer;
+  width: 100%;
+  padding: 20px;
 `;
 
 const UserProfileImg = styled.img`
