@@ -6,23 +6,23 @@ export interface GetUserForm {
   nickname: string;
   password: string;
   selfIntroduction: string;
-  followInfo: FollowInfo;
-  contentInfo: UserHasContentInfo;
+  followInfo: GetFollowInfo;
+  contentCountInfo: GetContentCountInfo;
   loginCheck: boolean;
 }
 
-export interface ContentUserInfo {
+export interface GetContentUserInfo {
   id: number;
   nickname: string;
   img: string | null;
 }
 
-export interface UserHasContentInfo {
+export interface GetContentCountInfo {
   postCount: number;
   diaryCount: number;
 }
 
-export interface FollowInfo {
+export interface GetFollowInfo {
   followerCount: number;
   followingCount: number;
 }
