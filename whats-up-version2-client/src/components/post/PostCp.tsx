@@ -4,10 +4,20 @@ import PostContentInfoCp from "./PostContentInfoCp";
 import { GetPostForm } from "@/types/contentTypes";
 interface Props {
   postInfo: GetPostForm;
+  loginCheck: boolean;
 }
-const PostCp = ({ postInfo }: Props) => {
-  const { img, User, mainContent, contactAllowInfo, contactCountInfo } =
-    postInfo;
+
+const PostCp = ({ postInfo, loginCheck }: Props) => {
+  const {
+    img,
+    User,
+    mainContent,
+    allowContactInfo,
+    contactCountInfo,
+    id: postId,
+    postLiked,
+  } = postInfo;
+
   return (
     <PostContainer>
       <PostContentInfoCp
@@ -15,11 +25,14 @@ const PostCp = ({ postInfo }: Props) => {
         mainContent={mainContent}
         userInfo={User}
         contactCountInfo={contactCountInfo}
-        contactAllowInfo={contactAllowInfo}
+        allowContactInfo={allowContactInfo}
       />
       <PostContactCp
-        contactAllowInfo={contactAllowInfo}
+        postId={postId}
+        allowContactInfo={allowContactInfo}
         contactCountInfo={contactCountInfo}
+        postLiked={postLiked}
+        loginCheck={loginCheck}
       />
     </PostContainer>
   );
@@ -32,6 +45,7 @@ const PostContainer = styled.div`
   margin-bottom: 100px;
   display: flex;
   @media screen and (max-width: 501px) {
+    justify-content: center;
     width: 100%;
     height: 100%;
     margin-bottom: 60px;

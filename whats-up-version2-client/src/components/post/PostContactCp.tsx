@@ -1,60 +1,53 @@
 import styled from "styled-components";
-import {
-  PostLikeIcon,
-  PostCommentIcon,
-  PostFillLikeIcon,
-} from "@components/icons/PostContactIcons";
 
-import useModal from "@/customHooks/useModal";
-import { useState } from "react";
-import { useSetRecoilState } from "recoil";
-import { PostContactCount, PostContactAllow } from "@/types/contentTypes";
-import morePostMdIdAtom from "@/store/getContentState/morePostMdIdState";
+import { GetPostContactCount, GetPostAllowContact } from "@/types/contentTypes";
+
+import PostContactLikeCp from "./postContact/PostContactLikeCp";
+import PostContactCommentCp from "./postContact/PostContactCommentCp";
 
 interface Props {
-  contactCountInfo: PostContactCount;
-  contactAllowInfo: PostContactAllow;
+  contactCountInfo: GetPostContactCount;
+  allowContactInfo: GetPostAllowContact;
+  postId: number;
+  postLiked: boolean;
+  loginCheck: boolean;
 }
 
-const PostContactCp = ({ contactCountInfo, contactAllowInfo }: Props) => {
-  const { onOpen } = useModal("postCommentMd");
+const PostContactCp = ({
+  contactCountInfo,
+  allowContactInfo,
+  postId,
+  postLiked: prePostLiked,
+  loginCheck,
+}: Props) => {
+  const { allowLike, allowComment } = allowContactInfo;
+  const { likeCount: preLikeCount, commentCount: preCommentCount } =
+    contactCountInfo;
 
-  const setMorePostMdIdState = useSetRecoilState(morePostMdIdAtom);
-
-  const [likeClick, setLikeClick] = useState(false);
   return (
     <PostContactContainer>
-      <PostContactWrapper>
-        {likeClick && contactAllowInfo.allowLike ? (
-          <PostFillLikeIcon onClick={() => setLikeClick(false)} />
-        ) : (
-          <PostLikeIcon onClick={() => setLikeClick(true)} />
-        )}
-        {contactAllowInfo.allowLike && <PostLikeIcon />}
-        <PostContactCountNumber>
-          {contactCountInfo.likeCount}
-        </PostContactCountNumber>
-      </PostContactWrapper>
-      <PostContactWrapper
-        onClick={() => {
-          setMorePostMdIdState(contactAllowInfo.postId);
-          onOpen();
-        }}
-      >
-        {contactAllowInfo.allowComment ? (
-          <PostCommentIcon />
-        ) : (
-          <PostCommentIcon />
-        )}
-        <PostContactCountNumber>
-          {contactCountInfo.commentCount}
-        </PostContactCountNumber>
-      </PostContactWrapper>
+      <PostContactLikeCp
+        allowLike={allowLike}
+        prePostLiked={prePostLiked}
+        preLikeCount={preLikeCount}
+        loginCheck={loginCheck}
+        postId={postId}
+      />
+      <PostContactCommentCp
+        allowComment={allowComment}
+        postId={postId}
+        preCommentCount={preCommentCount}
+      />
     </PostContactContainer>
   );
 };
 
 export default PostContactCp;
+
+/*
+
+
+*/
 
 const PostContactContainer = styled.div`
   width: 70px;
@@ -63,21 +56,4 @@ const PostContactContainer = styled.div`
   @media screen and (max-width: 501px) {
     display: none;
   }
-`;
-
-const PostContactWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: 30px;
-  margin-left: 10px;
-  cursor: pointer;
-  @media screen and (max-width: 501px) {
-    margin-top: 0;
-    margin-right: 10px;
-  }
-`;
-
-const PostContactCountNumber = styled.div`
-  font-size: 14px;
-  color: ${(props) => props.theme.fontColor};
 `;

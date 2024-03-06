@@ -6,15 +6,19 @@ import {
 } from "@components/icons/PostContactIcons";
 import useModal from "@/customHooks/useModal";
 import { useState } from "react";
-import { PostContactAllow, PostContactCount } from "@/types/contentTypes";
+import {
+  GetDiaryAllowContact,
+  GetPostAllowContact,
+  GetPostContactCount,
+} from "@/types/contentTypes";
 
 interface Props {
-  contactCountInfo: PostContactCount;
-  contactAllowInfo: PostContactAllow;
+  contactCountInfo: GetPostContactCount;
+  allowContactInfo: GetPostAllowContact;
 }
 
-const PostContactV2Cp = ({ contactAllowInfo, contactCountInfo }: Props) => {
-  const { allowComment, allowLike } = contactAllowInfo;
+const PostContactV2Cp = ({ allowContactInfo, contactCountInfo }: Props) => {
+  const { allowComment, allowLike } = allowContactInfo;
   const { commentCount, likeCount } = contactCountInfo;
 
   const { onOpen } = useModal("postCommentMd");
@@ -47,13 +51,11 @@ export default PostContactV2Cp;
 const PostContactInfoContainerV2 = styled.div`
   width: 100%;
   height: 40px;
-  border: 1px solid red;
   display: none;
   @media screen and (max-width: 501px) {
     display: flex;
     algin-items: center;
     width: 420px;
-    border: 3px solid #f7dd07;
     border-bottom: none;
   }
   @media screen and (max-width: 421px) {
