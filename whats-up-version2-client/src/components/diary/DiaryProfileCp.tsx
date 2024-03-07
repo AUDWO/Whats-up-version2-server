@@ -1,27 +1,32 @@
 import styled from "styled-components";
-import { ContentUserInfo } from "@/types/userTypes";
+import { GetContentUserInfo } from "@/types/userTypes";
+import BasicProfileImgCp from "@components/profile/BasicProfileImgCp";
+import outPutJoinedDate from "@/utils/outPutJoinedDate";
 
 interface Props {
-  userInfo: ContentUserInfo;
+  userInfo: GetContentUserInfo;
+  createdAt: string;
 }
 
-const DiaryProfileCp = ({ userInfo }: Props) => {
+const DiaryProfileCp = ({ userInfo, createdAt }: Props) => {
+  const { nickname, img } = userInfo;
+  const profileImgPresence = userInfo.img === null ? false : true;
   return (
     <MoreContentProfileContainer>
       <ProfileWrapper>
         <MoreContentProfileImgWrapper>
-          <MoreContentProfileImg
-            src={
-              "https://m.media-amazon.com/images/I/81FECvP07oL._AC_UF1000,1000_QL80_.jpg"
-            }
-          />
+          {profileImgPresence ? (
+            <MoreContentProfileImg src={img!} />
+          ) : (
+            <BasicProfileImgCp width="50px" padding="5px" />
+          )}
         </MoreContentProfileImgWrapper>
         <NameAndTypeWrapper>
-          <MoreContentProfileName>Peter_099</MoreContentProfileName>
+          <MoreContentProfileName>{nickname}</MoreContentProfileName>
           <MoreType>Diary</MoreType>
         </NameAndTypeWrapper>
       </ProfileWrapper>
-      <DiaryDate>2022-09-12</DiaryDate>
+      <DiaryDate>{outPutJoinedDate(createdAt)}</DiaryDate>
     </MoreContentProfileContainer>
   );
 };
@@ -31,10 +36,13 @@ export default DiaryProfileCp;
 const MoreContentProfileContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 560px;
+  width: 520px;
   margin-bottom: 70px;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 520px) {
     width: 100%;
+  }
+  @media screen and (max-width: 440px) {
+    margin-bottom: 30px;
   }
 `;
 
@@ -76,7 +84,9 @@ const ProfileWrapper = styled.div`
 `;
 
 const DiaryDate = styled.div`
-  font-size: 20px;
+  font-size: 18px;
   color: #808080;
-  line-height: 50px;
+  padding-bottom: 15px;
+  font-weight: 300;
+  padding-top: 5px;
 `;
