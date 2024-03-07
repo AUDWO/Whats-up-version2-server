@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useRef } from "react";
 import { useRecoilState } from "recoil";
-import diaryInfo from "@/store/content/diaryInfoState";
+import diaryInfo from "@/store/postContentState/diaryInfoState";
 
 const DiaryTitleInputCp = () => {
   const textarea = useRef<HTMLTextAreaElement | null>(null);

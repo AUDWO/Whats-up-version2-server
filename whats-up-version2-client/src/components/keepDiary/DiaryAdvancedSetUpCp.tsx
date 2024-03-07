@@ -37,6 +37,10 @@ const DiaryAdvancedSetUpCp = () => {
             <DiaryPublicDetailsText>좋아요 기능 해제</DiaryPublicDetailsText>
             <ToggleButtonCp inputId="diaryAllowLike" />
           </DiaryPublicDetailsToggleWrapper>
+          <DiaryPublicDetailsToggleWrapper>
+            <DiaryPublicDetailsText>비공개</DiaryPublicDetailsText>
+            <ToggleButtonCp inputId="diaryAllowPublic" />
+          </DiaryPublicDetailsToggleWrapper>
         </DiaryPublicDetailsTogglesWrapper>
       )}
     </DiaryPublicDetailsContainer>

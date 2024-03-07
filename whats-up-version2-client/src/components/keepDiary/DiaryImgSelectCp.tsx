@@ -3,8 +3,21 @@ import { DiarySelectImgIcon, PlusIcon } from "@components/icons/KeepDiaryIcons";
 import { useState } from "react";
 import { ArrowDownIcon } from "@components/icons/commonIcons/ArrowDownIcon";
 import { ArrowUpIcon } from "@components/icons/commonIcons/ArrowUpIcon";
+import useCustomMutation from "@/customHooks/queryCustomHooks/useCustomMutation";
+import { postPreImg } from "@/apis/postPreImg";
+import { useSetRecoilState } from "recoil";
+import diaryInfo from "@/store/postContentState/diaryInfoState";
+import onStoreImg from "@/utils/onStoreImg";
 const DiaryImgSelectCp = () => {
   const [imgSelectOpen, setImgSelectOpen] = useState(false);
+  const setDiaryInfoStatee = useSetRecoilState(diaryInfo);
+
+  const [preImg, setPreImg] = useState("");
+  const { mutate } = useCustomMutation(postPreImg, [""], (data) => {
+    if (data) {
+      setDiaryInfoStatee((prev) => ({ ...prev, img: data.url }));
+    }
+  });
   return (
     <DiaryImgSelectContainer>
       <DiaryImgToggleSelectWrapper>
@@ -30,11 +43,27 @@ const DiaryImgSelectCp = () => {
       {imgSelectOpen && (
         <>
           <DiaryImgSelectButtonWrapper>
-            <DiaryImgSelectButton>사진 선택</DiaryImgSelectButton>
+            <DiaryImgSelectButton htmlFor="diaryImg">
+              사진 선택
+            </DiaryImgSelectButton>
+            <DiaryImgSelectInput
+              type="file"
+              accept="image/*"
+              hidden
+              id="diaryImg"
+              onChange={(e) => {
+                onStoreImg(e, setPreImg, mutate);
+              }}
+            />
           </DiaryImgSelectButtonWrapper>
           <DiarySelectImgWrapper>
-            <DiarySelectImgIcon />
-            <PlusIcon />
+            {preImg.length > 1 ? (
+              <DiaryImgWrapper>
+                <DiaryImg src={preImg} />
+              </DiaryImgWrapper>
+            ) : (
+              <DiarySelectImgIcon />
+            )}
           </DiarySelectImgWrapper>
         </>
       )}
@@ -43,6 +72,26 @@ const DiaryImgSelectCp = () => {
 };
 
 export default DiaryImgSelectCp;
+
+const DiaryImgWrapper = styled.div`
+  width: 302px;
+  height: 302px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 9;
+  top: 0;
+`;
+
+const DiaryImg = styled.img`
+  width: 262px;
+  height: 206px;
+  border-radius: 10px;
+  object-fit: cover;
+`;
+
+const DiaryImgSelectInput = styled.input``;
 const DiaryImgSelectContainer = styled.div`
   width: 100%;
   display: flex;
@@ -71,7 +120,7 @@ const DiaryImgSelectButtonWrapper = styled.div`
   }
 `;
 
-const DiaryImgSelectButton = styled.div`
+const DiaryImgSelectButton = styled.label`
   color: #c9c9c9;
   font-size: 18px;
   margin-left: 25px;

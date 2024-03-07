@@ -1,4 +1,4 @@
-import diaryInfo from "@/store/content/diaryInfoState";
+import diaryInfo from "@/store/postContentState/diaryInfoState";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 
