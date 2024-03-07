@@ -1,30 +1,39 @@
+import { getCommentLikeCount } from "@/apis/comment/getApis";
+import { getPostLikeInfo } from "@/apis/postApis/getApis";
 import toggleState from "@/store/toggleState";
+import { useQuery } from "@tanstack/react-query";
+import React from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 
 interface Props {
+  likeCount: number;
   commentId: number;
 }
+const CommentContactCp = ({ commentId, likeCount: preLikeCount }: Props) => {
+  const { data: likeInfo, isLoading } = useQuery({
+    queryKey: [`comment-like-count-${commentId}`],
+    queryFn: () => getCommentLikeCount(commentId, "post"),
+  });
 
-const CommentContactCp = ({ commentId }: Props) => {
-  const [replyCommentInputOpen, setReplyCommentInputOpen] = useRecoilState(
-    toggleState(`replyCommentInputOpen-${commentId}`)
+  const [replyComInputOpen, setReplyComInputOpen] = useRecoilState(
+    toggleState(`replyComInputOpen-${commentId}`)
   );
+
+  const likeCountData = likeInfo?.likeCount || preLikeCount;
+
   return (
     <CommentContactWrapper>
       <CommentLikeText>좋아요</CommentLikeText>
-      <CommentLikeCountNumber>18</CommentLikeCountNumber>
-      {replyCommentInputOpen ? (
+      <CommentLikeCountNumber>{likeCountData}</CommentLikeCountNumber>
+      {replyComInputOpen ? (
         <ReplyCommentInputOpenButton
-          onClick={() => setReplyCommentInputOpen(false)}
+          onClick={() => setReplyComInputOpen(false)}
         >
           취소
         </ReplyCommentInputOpenButton>
       ) : (
-        <ReplyCommentInputOpenButton
-          onClick={() => setReplyCommentInputOpen(true)}
-        >
-          {" "}
+        <ReplyCommentInputOpenButton onClick={() => setReplyComInputOpen(true)}>
           답글 달기
         </ReplyCommentInputOpenButton>
       )}

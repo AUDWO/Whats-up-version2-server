@@ -1,7 +1,10 @@
 import { postReplyComment } from "@/apis/comment/postApis";
 import myInfoQuery from "@/customHooks/queryCustomHooks/myInfoQuery";
 import useCustomMutation from "@/customHooks/queryCustomHooks/useCustomMutation";
+import onCheckHasReplyComments from "@/store/getCommentState/onCheckHasReplyComments";
+import toggleState from "@/store/toggleState";
 import { useState } from "react";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
 interface Props {
@@ -15,24 +18,56 @@ const ReplyCommentInput = ({ commentId, contentType, contentId }: Props) => {
 
   const { data: myInfo } = myInfoQuery();
 
-  const { mutate: createReplyComment } = useCustomMutation(postReplyComment);
+  const setOnHasReplyComments = useSetRecoilState(
+    onCheckHasReplyComments(`comment-${commentId}`)
+  );
 
-  const handleCreateReplyComment = () => {
-    createReplyComment({ content: content, contentType, commentId, contentId });
+  const setReplyComInputOpen = useSetRecoilState(
+    toggleState(`replyComInputOpen-${commentId}`)
+  );
+
+  const { mutate: createReplyComment } = useCustomMutation(postReplyComment, [
+    `postCommentCount-${contentId}`,
+  ]);
+
+  const atLeastContentLength = () => content.length > 1;
+
+  const handlePostReplyComment = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.stopPropagation();
+    if (!atLeastContentLength()) {
+      alert("댓글을 입력해주세요!");
+      return;
+    } else {
+      createReplyComment({
+        content: content,
+        contentType,
+        commentId,
+        contentId,
+      });
+      setContent("");
+      setOnHasReplyComments(true);
+      setReplyComInputOpen(false);
+    }
   };
 
   return (
     <InputContainer>
       <Input
         readOnly={!myInfo?.loginCheck}
-        placeholder="답글을 입력해주세요!"
+        placeholder={
+          myInfo?.loginCheck
+            ? "답글을 입력해주세요."
+            : "로그인 후 이용해주세요."
+        }
         value={content}
         onChange={(e) => setContent(e.target.value)}
         contentType={contentType}
       />
       <ReplyCommentPostButton
-        canSubmit={false}
-        onClick={handleCreateReplyComment}
+        canSubmit={atLeastContentLength()}
+        onClick={handlePostReplyComment}
         contentType={contentType}
       >
         게시

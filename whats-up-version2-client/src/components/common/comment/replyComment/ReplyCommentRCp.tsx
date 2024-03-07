@@ -2,17 +2,37 @@ import styled from "styled-components";
 import CommentProfileCp from "../CommentProfileCp";
 import CommentContactCp from "../CommentContactCp";
 import CommentLikeCp from "../CommentLikeCp";
-import { ContentUserInfo } from "@/types/userTypes";
 import { GetCommentForm } from "@/types/commentTypes";
+
 interface Props {
   contentType: string;
   replyCommentInfo: GetCommentForm;
 }
 const ReplyCommentRCp = ({ contentType, replyCommentInfo }: Props) => {
-  const { commentId, content, User } = replyCommentInfo;
+  const { commentId, content, User, likeInfo } = replyCommentInfo;
+  const { likeCount, commentLiked } = likeInfo;
   const { img, nickname } = User;
 
   return (
+    <CommentContainer>
+      <CommentProfileCp img={img} />
+      <CommentContentContainer>
+        <CommentProfileName>{nickname}</CommentProfileName>
+        <CommentContent>{content}</CommentContent>
+      </CommentContentContainer>
+      <CommentLikeCp
+        likeStatus={commentLiked}
+        commentId={commentId!}
+        contentType={contentType}
+      />
+    </CommentContainer>
+  );
+};
+
+export default ReplyCommentRCp;
+
+/*
+ return (
     <CommentContainer>
       <CommentProfileCp img={img} />
       <CommentContentContainer>
@@ -23,10 +43,13 @@ const ReplyCommentRCp = ({ contentType, replyCommentInfo }: Props) => {
       <CommentLikeCp />
     </CommentContainer>
   );
-};
 
-export default ReplyCommentRCp;
 
+
+
+
+
+*/
 const CommentContainer = styled.div`
   display: flex;
   margin-top: 20px;

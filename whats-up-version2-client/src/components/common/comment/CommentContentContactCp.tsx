@@ -1,48 +1,66 @@
 import styled from "styled-components";
 import CommentContactCp from "./CommentContactCp";
 import ReplyCommentOpenCp from "./replyComment/ReplyCommentOpenCp";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import toggleState from "@/store/toggleState";
 import ReplyCommentInput from "./ReplyCommentInput";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getCommentHasReplyComments } from "@/apis/comment/getApis";
+import onCheckHasReplyComments from "@/store/getCommentState/onCheckHasReplyComments";
 
 interface Props {
   commentId: number;
+  contentId: number;
   nickname: string;
   content: string;
-  //ååcontentId: number;
+  hasReplyComments: boolean;
+  likeCount: number;
 }
 
-const CommentContentContactCp = ({ commentId, nickname, content }: Props) => {
+const CommentContentContactCp = ({
+  contentId,
+  commentId,
+  nickname,
+  content,
+  hasReplyComments: preHasReplyCom,
+  likeCount,
+}: Props) => {
+  // const [replyCommentInputOpen, setReplyCommentInputOpen] = useState(false);
+
   const replyCommentInputOpen = useRecoilValue(
-    toggleState(`replyCommentInputOpen-${commentId}`)
+    toggleState(`replyComInputOpen-${commentId}`)
   );
+  const onCheckHasReplyCom = useRecoilValue(
+    onCheckHasReplyComments(`comment-${commentId}`)
+  );
+
+  const { data: hasReplyCom } = useQuery({
+    queryKey: [`hasReplyComment`, commentId],
+    queryFn: () => getCommentHasReplyComments(commentId, "post"),
+    enabled: onCheckHasReplyCom,
+  });
+
+  const hasReplyComData = hasReplyCom || preHasReplyCom;
 
   return (
     <CommentContentContainer>
       <CommentProfileName>{nickname}</CommentProfileName>
       <CommentContent>{content}</CommentContent>
-      <CommentContactCp commentId={commentId} />
+      <CommentContactCp likeCount={likeCount} commentId={commentId} />
       {replyCommentInputOpen && (
         <ReplyCommentInput
           commentId={commentId}
           contentType="post"
-          contentId={1}
+          contentId={contentId}
         />
       )}
-      <ReplyCommentOpenCp commentId={commentId} />
+      {hasReplyComData && <ReplyCommentOpenCp commentId={commentId} />}
     </CommentContentContainer>
   );
 };
 
 export default CommentContentContactCp;
-
-const C = styled.input`
-  border: none;
-  border-bottom: 1px solid ${(props) => props.theme.borderColor};
-  width: 100%;
-  outline: none;
-  height: 30px;
-`;
 
 const CommentProfileName = styled.span`
   font-weight: 800;

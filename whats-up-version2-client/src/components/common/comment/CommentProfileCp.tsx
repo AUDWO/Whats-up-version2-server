@@ -1,4 +1,4 @@
-import { ContentUserInfo } from "@/types/userTypes";
+import { GetContentUserInfo } from "@/types/userTypes";
 import BasicProfileImgCp from "@components/profile/BasicProfileImgCp";
 import styled from "styled-components";
 

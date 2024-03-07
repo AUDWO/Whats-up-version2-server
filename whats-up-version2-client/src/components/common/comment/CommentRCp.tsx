@@ -7,26 +7,44 @@ import { useRecoilValue } from "recoil";
 import toggleState from "@/store/toggleState";
 import ReplyCommentsRCp from "./replyComment/ReplyCommentsRCp";
 import { GetCommentForm } from "@/types/commentTypes";
+
 interface Props {
   contentType: string;
   commentInfo: GetCommentForm;
+  contentId: number;
 }
-const CommentRCp = ({ contentType, commentInfo }: Props) => {
-  const { User, id: commentId, content } = commentInfo;
+const CommentRCp = ({ contentType, commentInfo, contentId }: Props) => {
+  const {
+    User,
+    id: commentId,
+    content,
+    hasReplyComments,
+    likeInfo,
+  } = commentInfo;
+
   const { nickname, img } = User;
+  const { likeCount, commentLiked } = likeInfo;
   const replyCommentsOpen = useRecoilValue(
     toggleState(`replyComments-${commentId}`)
   );
+
   return (
     <CommentContainer>
       <CommentWrapper>
         <CommentProfileCp img={img} />
         <CommentContentContactCp
+          contentId={contentId}
           commentId={commentId}
           nickname={nickname}
           content={content}
+          hasReplyComments={hasReplyComments}
+          likeCount={likeCount}
         />
-        <CommentLikeCp />
+        <CommentLikeCp
+          commentId={commentId}
+          likeStatus={commentLiked}
+          contentType={contentType}
+        />
       </CommentWrapper>
       {replyCommentsOpen && (
         <ReplyCommentsRCp contentType={contentType} commentId={commentId} />
