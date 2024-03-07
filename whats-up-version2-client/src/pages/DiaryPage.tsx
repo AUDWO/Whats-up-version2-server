@@ -20,6 +20,7 @@ const DiaryPage = () => {
   if (isLoading) {
     <div>안ㄴ</div>;
   }
+  const { User, title, content, img } = diaryInfo!;
 
   return (
     <div>
@@ -27,14 +28,14 @@ const DiaryPage = () => {
         <MainSideNavCp />
         <MainContentContainer>
           <DiaryContentContainer>
-            <DiaryProfileCp userInfo={diaryInfo!.userInfo} />
-            <DiaryTitleCp title={diaryInfo!.title} />
-            <DiaryImgCp img={diaryInfo!.img} />
-            <DiaryContentCp content={diaryInfo!.content} />
+            <DiaryProfileCp userInfo={User} />
+            <DiaryTitleCp title={title} />
+            <DiaryImgCp img={img} />
+            <DiaryContentCp content={content} />
             <MoreContactCp />
           </DiaryContentContainer>
         </MainContentContainer>
-        <MoreCommentsRCp contentType="diary" />
+        <MoreCommentsRCp contentType="diary" contentId={Number(diaryId)} />
       </Container>
     </div>
   );
