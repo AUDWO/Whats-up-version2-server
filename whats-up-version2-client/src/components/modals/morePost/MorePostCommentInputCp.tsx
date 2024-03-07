@@ -11,15 +11,17 @@ interface Props {
 
 const MorePostCommentInputCp = ({ postId }: Props) => {
   const [content, setContent] = useState("");
+  const { data: myInfo } = myInfoQuery();
   const { onOpen } = useModal("requestLoginMd");
 
   const textarea = useRef<HTMLTextAreaElement>(null);
 
-  const { data: myInfo } = myInfoQuery();
-
   const { mutate: createComment } = useCustomMutation(postComment, [
-    `postComment-${postId}`,
+    `postCommentCount-${postId}`,
+    `postComments-${postId}`,
   ]);
+
+  const atLeastContentLength = () => content.length < 1;
 
   const handlePostComment = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -27,6 +29,7 @@ const MorePostCommentInputCp = ({ postId }: Props) => {
     e.stopPropagation();
     if (!myInfo?.loginCheck) {
       onOpen();
+      return;
     }
     if (atLeastContentLength()) {
       alert("댓글을 입력해주세요!");
@@ -37,9 +40,8 @@ const MorePostCommentInputCp = ({ postId }: Props) => {
       contentType: "postComment",
       contentId: postId,
     });
+    setContent("");
   };
-
-  const atLeastContentLength = () => content.length > 1;
 
   return (
     <CommentInputContainer>
@@ -55,13 +57,13 @@ const MorePostCommentInputCp = ({ postId }: Props) => {
         }
         placeholder={
           myInfo?.loginCheck
-            ? "댓글을 입력해주세요!"
-            : "로그인 후 이용 가능합니다!"
+            ? "댓글을 입력해주세요."
+            : "로그인 후 이용 가능합니다."
         }
         value={content}
       />
       <CommentPostButton
-        canSubmit={atLeastContentLength()}
+        canSubmit={!atLeastContentLength()}
         onClick={handlePostComment}
       >
         게시

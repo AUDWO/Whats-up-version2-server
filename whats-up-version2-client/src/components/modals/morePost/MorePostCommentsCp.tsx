@@ -1,4 +1,4 @@
-import { getPostComments } from "@/apis/comment/getApis";
+import { getComments, getPostComments } from "@/apis/comment/getApis";
 import CommentRCp from "@components/common/comment/CommentRCp";
 import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
@@ -6,17 +6,26 @@ interface Props {
   postId: number;
 }
 const MorePostCommentsCp = ({ postId }: Props) => {
-  const { data } = useQuery({
+  const { data: postComments, isLoading } = useQuery({
     queryKey: [`postComments-${postId}`],
-    queryFn: () => getPostComments(postId),
+    queryFn: () => getComments(postId, "post"),
   });
+
+  if (isLoading) {
+    return <div>안녕</div>;
+  }
+
   return (
     <MorePostCommentsContainer>
-      {data?.map((comment) => (
-        <CommentRCp contentType="post" commentInfo={comment} />
+      {postComments!.map((comment) => (
+        <CommentRCp
+          contentType="post"
+          commentInfo={comment}
+          contentId={postId}
+        />
       ))}
 
-      {false && (
+      {postComments!.length === 0 && (
         <NoCommentWrapper>
           <NoCommentText>아직 댓글이 존재하지 않습니다.</NoCommentText>
         </NoCommentWrapper>
@@ -33,10 +42,11 @@ const MorePostCommentsContainer = styled.div`
   padding-right: 10px;
   padding-bottom: 20px;
   overflow: auto;
-  height: 360px;
+  height: 440px;
   ::-webkit-scrollbar {
     display: none;
   }
+  flex: 1;
   background-color: ${(props) => props.theme.subBgColor};
 `;
 

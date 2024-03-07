@@ -1,15 +1,33 @@
+import myInfoQuery from "@/customHooks/queryCustomHooks/myInfoQuery";
 import { GetContentUserInfo } from "@/types/userTypes";
 import BasicProfileImgCp from "@components/profile/BasicProfileImgCp";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 interface Props {
   userInfo: GetContentUserInfo;
   subContent: string;
 }
 const MorePostSubContentCp = ({ userInfo, subContent }: Props) => {
+  const { data: myInfo } = myInfoQuery();
+
+  const navigate = useNavigate();
+
+  const handleLinkToProfilePage = () => {
+    if (myInfo?.id === userInfo.id) {
+      navigate("/profile/my");
+    } else {
+      navigate(`/profile/other/${userInfo.id}`);
+    }
+  };
+
   return (
     <MorePostContentContainer>
       <MoreProfileImgWrapper>
-        {userInfo.img ? <MoreProfileImg /> : <BasicProfileImgCp width="35px" />}
+        {userInfo.img ? (
+          <MoreProfileImg onClick={handleLinkToProfilePage} />
+        ) : (
+          <BasicProfileImgCp onClick={handleLinkToProfilePage} width="35px" />
+        )}
       </MoreProfileImgWrapper>
       <MorePostContentWrapper>
         <MoreProfileName>{userInfo.nickname}</MoreProfileName>
