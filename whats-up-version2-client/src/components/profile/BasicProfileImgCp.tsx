@@ -3,10 +3,15 @@ import { FaUser } from "react-icons/fa";
 interface Props {
   width: string;
   padding?: string;
+  onClick?: () => void;
 }
 
-const BasicProfileImgCp = ({ width, padding = "0" }: Props) => {
-  return <BasicProfileImg width={width} padding={padding} />;
+const BasicProfileImgCp = ({
+  width,
+  padding = "0",
+  onClick = () => {},
+}: Props) => {
+  return <BasicProfileImg width={width} padding={padding} onClick={onClick} />;
 };
 
 export default BasicProfileImgCp;

@@ -88,6 +88,7 @@ const BasicProfileImg = styled(FaUser)`
 `;
 
 const ProfileInfoContainer = styled.div`
+  border: 1px solid black;
   width: 100%;
   height: auto;
   border-bottom: 1px solid #dbdbdb;
@@ -95,6 +96,7 @@ const ProfileInfoContainer = styled.div`
   background-color: ${(props) => props.theme.bgColor};
   padding-right: 60px;
   display: flex;
+  align-items: flex-start;
   @media screen and (max-width: 662px) {
     flex-direction: column;
     align-items: center;
@@ -105,10 +107,13 @@ const ProfileInfoContainer = styled.div`
 const ProfileImgWrapper = styled.div`
   width: 170px;
   height: 170px;
-  margin-top: 30px;
   margin-left: 30px;
   @media screen and (max-width: 662px) {
     width: 460px;
+    height: 150px;
+  }
+  @media screen and (max-width: 500px) {
+    margin-top: 50px;
     margin-left: 0;
   }
   @media screen and (max-width: 464px) {
@@ -152,7 +157,8 @@ const ProfileImg = styled.img`
 
 const ProfileInfoWrapper = styled.div`
   width: 80%;
-  height: 300px;
+  height: auto;
+  margin-bottom: 30px;
   padding-left: 80px;
   @media screen and (max-width: 662px) {
     width: 460px;
