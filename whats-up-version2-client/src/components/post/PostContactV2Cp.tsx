@@ -6,11 +6,7 @@ import {
 } from "@components/icons/PostContactIcons";
 import useModal from "@/customHooks/useModal";
 import { useState } from "react";
-import {
-  GetDiaryAllowContact,
-  GetPostAllowContact,
-  GetPostContactCount,
-} from "@/types/contentTypes";
+import { GetPostAllowContact, GetPostContactCount } from "@/types/contentTypes";
 
 interface Props {
   contactCountInfo: GetPostContactCount;

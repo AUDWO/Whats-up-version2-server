@@ -18,6 +18,8 @@ const PostCp = ({ postInfo, loginCheck }: Props) => {
     postLiked,
   } = postInfo;
 
+  console.log(postInfo, "postInfo");
+
   return (
     <PostContainer>
       <PostContentInfoCp

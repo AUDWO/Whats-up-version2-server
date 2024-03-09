@@ -41,7 +41,7 @@ const PostContactLikeCp = ({
   });
 
   const likeCountData = likeInfo?.likeCount || preLikeCount;
-  const likeStatusData = likeInfo?.postLiked || prePostLiked;
+  const likeStatusData = likeInfo?.likeStatus || prePostLiked;
 
   return (
     <PostContactWrapper>
@@ -52,7 +52,7 @@ const PostContactLikeCp = ({
               if (!loginCheck) {
                 requestLoginMdOpen();
               } else {
-                handlePostLike({ postId, postLikeAction: "un-like" });
+                handlePostLike({ postId, postLikeAction: "unLike" });
               }
             }}
           />

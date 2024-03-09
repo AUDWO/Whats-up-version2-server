@@ -16,9 +16,6 @@ const PostContentsRCp = () => {
     <LoadingContainer></LoadingContainer>;
   }
 
-  if (postContents) {
-    console.log(postContents, "postContents - -9 -9- 9-9 -9-9");
-  }
   return (
     <PostsContainer>
       {postContents?.map((postInfo) => (

@@ -23,6 +23,7 @@ const PostContentInfoCp = ({
 }: Props) => {
   const navigate = useNavigate();
   const { data: myInfo, isLoading } = myInfoQuery();
+  const { nickname, id: userId, img: profileImg } = userInfo;
 
   //const handle
 
@@ -38,22 +39,20 @@ const PostContentInfoCp = ({
   return (
     <PostContentInfoContainer>
       <PostProfileWrapper>
-        {userInfo.img ? (
+        {profileImg ? (
           <PostProfileImg
-            src={userInfo.img}
+            src={profileImg}
             onClick={() => {
-              handleLinkToProfilePage(userInfo.id);
+              handleLinkToProfilePage(userId);
             }}
           />
         ) : (
-          <PostBasicProfileImg
-            onClick={() => handleLinkToProfilePage(userInfo.id)}
-          >
+          <PostBasicProfileImg onClick={() => handleLinkToProfilePage(userId)}>
             <BasicProfileImgCp width="38px" padding="5px" />
           </PostBasicProfileImg>
         )}
-        <PostProfileName onClick={() => handleLinkToProfilePage(userInfo.id)}>
-          {userInfo.nickname}
+        <PostProfileName onClick={() => handleLinkToProfilePage(userId)}>
+          {nickname}
         </PostProfileName>
       </PostProfileWrapper>
       <PostImg src={img} />
@@ -63,7 +62,7 @@ const PostContentInfoCp = ({
       />
       <PostContentWrapper>
         <PostContent>
-          <PostContentProfileName>{userInfo.nickname}</PostContentProfileName>
+          <PostContentProfileName>{nickname}</PostContentProfileName>
           {mainContent}
         </PostContent>
       </PostContentWrapper>
@@ -106,7 +105,7 @@ const PostBasicProfileImg = styled.div`
 
 const PostProfileName = styled.span`
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 800;
   padding: 6px 10px 6px 10px;
   background-color: white;
   border-radius: 14px;
