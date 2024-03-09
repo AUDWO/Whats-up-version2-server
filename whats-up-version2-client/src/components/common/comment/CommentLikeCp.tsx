@@ -33,20 +33,24 @@ const CommentLikeCp = ({
   const { mutate: handlePostLike } = useMutation({
     mutationFn: postCommentLike,
     onSuccess: (data) => {
-      queryClient.invalidateQueries({
-        queryKey: [`comment-like-status-${commentId}`],
-      });
+      console.log("aaaa");
       queryClient.invalidateQueries({
         queryKey: [`comment-like-count-${commentId}`],
       });
+      queryClient.invalidateQueries({
+        queryKey: [`comment-like-status-${commentId}`],
+      });
     },
   });
-
   if (isLoading) {
+  }
+  if (likeInfo) {
+    console.log(likeInfo, commentId, "commentId", "likeInfo likeInfo LATEST");
   }
 
   const likeStatusData = likeInfo?.likeStatus || preLikeStatus;
-  const notUserLogin = !myInfo?.loginCheck;
+
+  const userNotLogin = !myInfo?.loginCheck;
 
   return (
     <CommnetLikeIconWrapper>
@@ -59,7 +63,7 @@ const CommentLikeCp = ({
       ) : (
         <CommentLikeIcon
           onClick={() => {
-            if (notUserLogin) {
+            if (userNotLogin) {
               onClose();
               onOpen();
             } else {

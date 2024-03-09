@@ -10,7 +10,6 @@ import { MutableRefObject, forwardRef } from "react";
 const MainSideNavCp = forwardRef<HTMLDivElement, {}>((props, ref) => {
   const searchMdOpenState = useRecoilValue(dependedModalOpenState("searchMd"));
 
-  console.log(ref, "MainSideNav REF ");
   return (
     <div>
       <SearchMd />

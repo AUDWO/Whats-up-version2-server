@@ -21,6 +21,8 @@ import {
 } from "@/styledComponents/mainSideNav/NavMenuCpStyle";
 
 import SeeMorePopUp from "@/popUp/SeeMorePopUp";
+import SeeMorePopUp2 from "@/popUp/SeeMorePopUp2";
+
 import {
   MutableRefObject,
   forwardRef,
@@ -122,7 +124,7 @@ const NavMenuCp = forwardRef<HTMLDivElement, {}>((props, ref) => {
         e.stopPropagation();
         setSeeMoreModalOpenState(!seeMoreModalOpenState);
       },
-      children: seeMoreModalOpenState && <SeeMorePopUp />,
+      children: seeMoreModalOpenState && <SeeMorePopUp2 />,
     },
   ];
 

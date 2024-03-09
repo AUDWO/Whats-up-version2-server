@@ -1,10 +1,14 @@
 import styled from "styled-components";
 
-const MoreCommentCountCp = () => {
+interface Props {
+  commentCount: number;
+}
+
+const MoreCommentCountCp = ({ commentCount }: Props) => {
   return (
     <MoreCommentCountWrapper>
       <MoreCommentCountTitle>댓글</MoreCommentCountTitle>
-      <MoreCommentCountNumber>7</MoreCommentCountNumber>
+      <MoreCommentCountNumber>{commentCount}</MoreCommentCountNumber>
     </MoreCommentCountWrapper>
   );
 };

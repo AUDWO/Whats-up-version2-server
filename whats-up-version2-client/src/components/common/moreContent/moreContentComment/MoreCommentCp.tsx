@@ -4,11 +4,16 @@ import { GetCommentForm } from "@/types/commentTypes";
 interface Props {
   contentType: string;
   commentInfo: GetCommentForm;
+  contentId: number;
 }
-const MoreCommentCp = ({ contentType, commentInfo }: Props) => {
+const MoreCommentCp = ({ contentType, commentInfo, contentId }: Props) => {
   return (
     <MoreCommentContainer>
-      <CommentRCp contentType={contentType} commentInfo={commentInfo} />
+      <CommentRCp
+        contentId={contentId}
+        contentType={contentType}
+        commentInfo={commentInfo}
+      />
     </MoreCommentContainer>
   );
 };

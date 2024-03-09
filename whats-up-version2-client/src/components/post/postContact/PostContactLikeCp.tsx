@@ -82,13 +82,9 @@ export default PostContactLikeCp;
 const PostContactWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 30px;
-  margin-left: 10px;
   cursor: pointer;
-  @media screen and (max-width: 501px) {
-    margin-top: 0;
-    margin-right: 10px;
-  }
+  margin-left: 10px;
+  margin-right: 10px;
 `;
 
 const BanPostLikeIcon = styled(PostLikeIcon)`

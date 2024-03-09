@@ -37,7 +37,7 @@ const PostsContainer = styled.div`
   }
 
   @media screen and (max-width: 501px) {
-    justify-content: cneter;
+    justify-content: center;
   }
   padding-top: 20px;
 `;

@@ -23,9 +23,9 @@ const CommentRCp = ({ contentType, commentInfo, contentId }: Props) => {
   } = commentInfo;
 
   const { nickname, img } = User;
-  const { likeCount, commentLiked } = likeInfo;
+  const { likeCount, likeStatus } = likeInfo;
   const replyCommentsOpen = useRecoilValue(
-    toggleState(`replyComments-${commentId}`)
+    toggleState(`replyComments-${contentType}-${commentId}`)
   );
 
   return (
@@ -39,10 +39,11 @@ const CommentRCp = ({ contentType, commentInfo, contentId }: Props) => {
           content={content}
           hasReplyComments={hasReplyComments}
           likeCount={likeCount}
+          contentType={contentType}
         />
         <CommentLikeCp
           commentId={commentId}
-          likeStatus={commentLiked}
+          likeStatus={likeStatus}
           contentType={contentType}
         />
       </CommentWrapper>
@@ -58,8 +59,12 @@ export default CommentRCp;
 const CommentContainer = styled.div`
   margin-top: 20px;
   margin-bottom: 40px;
+  width: 100%;
+  box-sizing: border-box;
 `;
 
 const CommentWrapper = styled.div`
   display: flex;
+  width: 100%;
+  box-sizing: border-box;
 `;

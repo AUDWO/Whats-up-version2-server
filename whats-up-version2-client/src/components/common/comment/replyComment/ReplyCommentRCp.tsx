@@ -1,16 +1,16 @@
 import styled from "styled-components";
 import CommentProfileCp from "../CommentProfileCp";
-import CommentContactCp from "../CommentContactCp";
 import CommentLikeCp from "../CommentLikeCp";
 import { GetCommentForm } from "@/types/commentTypes";
+import ReplyCommentContactCp from "./ReplyCommentContactCp";
 
 interface Props {
   contentType: string;
   replyCommentInfo: GetCommentForm;
 }
 const ReplyCommentRCp = ({ contentType, replyCommentInfo }: Props) => {
-  const { commentId, content, User, likeInfo } = replyCommentInfo;
-  const { likeCount, commentLiked } = likeInfo;
+  const { id: replyCommentId, content, User, likeInfo } = replyCommentInfo;
+  const { likeCount, likeStatus } = likeInfo;
   const { img, nickname } = User;
 
   return (
@@ -19,10 +19,15 @@ const ReplyCommentRCp = ({ contentType, replyCommentInfo }: Props) => {
       <CommentContentContainer>
         <CommentProfileName>{nickname}</CommentProfileName>
         <CommentContent>{content}</CommentContent>
+        <ReplyCommentContactCp
+          likeCount={likeCount}
+          contentType={contentType}
+          commentId={replyCommentId}
+        />
       </CommentContentContainer>
       <CommentLikeCp
-        likeStatus={commentLiked}
-        commentId={commentId!}
+        likeStatus={likeStatus}
+        commentId={replyCommentId!}
         contentType={contentType}
       />
     </CommentContainer>
@@ -53,7 +58,10 @@ export default ReplyCommentRCp;
 const CommentContainer = styled.div`
   display: flex;
   margin-top: 20px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
+  width: 100%;
+  border-top: 1px solid ${(props) => props.theme.borderColor};
+  padding-top: 10px;
 `;
 
 const CommentProfileName = styled.span`
@@ -67,7 +75,7 @@ const CommentContentContainer = styled.div`
   min-height: 40px;
   margin-left: 10px;
   margin-top: 7px;
-  width: 253px;
+  width: 100%;
 `;
 
 const CommentContent = styled.span`

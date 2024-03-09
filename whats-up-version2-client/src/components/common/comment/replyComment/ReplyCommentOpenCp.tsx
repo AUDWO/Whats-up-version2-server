@@ -5,10 +5,11 @@ import toggleState from "@/store/toggleState";
 
 interface Props {
   commentId: number;
+  contentType: string;
 }
-const ReplyCommentOpenCp = ({ commentId }: Props) => {
+const ReplyCommentOpenCp = ({ commentId, contentType }: Props) => {
   const [replyCommentsOpen, setReplyCommentsOpen] = useRecoilState(
-    toggleState(`replyComments-${commentId}`)
+    toggleState(`replyComments-${contentType}-${commentId}`)
   );
 
   return (
@@ -17,7 +18,7 @@ const ReplyCommentOpenCp = ({ commentId }: Props) => {
         setReplyCommentsOpen(!replyCommentsOpen);
       }}
     >
-      <ReplyCommentOpenIcon />
+      <ReplyCommentOpenIcon onRotate={replyCommentsOpen} />
       <ReplyCommentOpenButton>답글 보기</ReplyCommentOpenButton>
     </ReplyCommentOpenWrapper>
   );

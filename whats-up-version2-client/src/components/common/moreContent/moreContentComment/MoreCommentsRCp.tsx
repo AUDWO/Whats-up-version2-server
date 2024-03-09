@@ -3,11 +3,7 @@ import MoreCommentCountCp from "./MoreCommentCountCp";
 import MoreCommentInputCp from "./MoreCommentInputCp";
 import MoreCommentCp from "./MoreCommentCp";
 import { useQuery } from "@tanstack/react-query";
-import {
-  getComments,
-  getDiaryComments,
-  getStoryComments,
-} from "@/apis/comment/getApis";
+import { getComments } from "@/apis/comment/getApis";
 
 interface Props {
   contentType: string;
@@ -15,20 +11,35 @@ interface Props {
 }
 
 const MoreCommentsRCp = ({ contentType, contentId }: Props) => {
-  const { data: comments } = useQuery({
+  const { data: comments, isLoading } = useQuery({
     queryKey: [`${contentType}Comments`],
     queryFn: () => getComments(contentId, contentType),
   });
+
+  if (isLoading) {
+    return <div>안녕</div>;
+  }
+
+  console.log(comments, "content comments -0-0-0");
+
   return (
     <MoreContentCommentsContainer>
       <MoreCommentBackground>
         <MoreCommentsContainer>
-          <MoreCommentCountCp />
+          <MoreCommentCountCp commentCount={comments!.length} />
           <MoreCommentInputCp contentType={contentType} contentId={1} />
           <MoreCommentsWrapper>
-            {comments!.map((comment) => (
-              <MoreCommentCp contentType={contentType} commentInfo={comment} />
-            ))}
+            {comments!.length === 0 ? (
+              <NoCommentsCp>댓글이 존재하지 않습니다.</NoCommentsCp>
+            ) : (
+              comments!.map((comment) => (
+                <MoreCommentCp
+                  contentId={contentId}
+                  contentType={contentType}
+                  commentInfo={comment}
+                />
+              ))
+            )}
           </MoreCommentsWrapper>
         </MoreCommentsContainer>
       </MoreCommentBackground>
@@ -37,6 +48,15 @@ const MoreCommentsRCp = ({ contentType, contentId }: Props) => {
 };
 
 export default MoreCommentsRCp;
+
+const NoCommentsCp = styled.div`
+  width: 100%;
+  height: 250px;
+  display: flex;
+  padding-top: 60px;
+  align-items: flex-start;
+  justify-content: center;
+`;
 
 const MoreContentCommentsContainer = styled.div`
   width: 100%;
@@ -66,6 +86,7 @@ const MoreCommentsContainer = styled.div`
     padding-right: 20px;
     padding-left: 20px;
     width: 100%;
+    padding-bottom: 150px;
   }
 `;
 

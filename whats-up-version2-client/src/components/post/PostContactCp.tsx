@@ -1,31 +1,36 @@
 import styled from "styled-components";
-
-import { GetPostContactCount, GetPostAllowContact } from "@/types/contentTypes";
-
+import {
+  PostLikeIcon,
+  PostCommentIcon,
+  PostFillLikeIcon,
+} from "@components/icons/PostContactIcons";
+import useModal from "@/customHooks/useModal";
+import { useState } from "react";
+import { GetPostAllowContact, GetPostContactCount } from "@/types/contentTypes";
 import PostContactLikeCp from "./postContact/PostContactLikeCp";
 import PostContactCommentCp from "./postContact/PostContactCommentCp";
 
 interface Props {
   contactCountInfo: GetPostContactCount;
   allowContactInfo: GetPostAllowContact;
-  postId: number;
   postLiked: boolean;
   loginCheck: boolean;
+  postId: number;
 }
 
-const PostContactCp = ({
-  contactCountInfo,
+const PostContactV2Cp = ({
   allowContactInfo,
-  postId,
+  contactCountInfo,
   postLiked: prePostLiked,
   loginCheck,
+  postId,
 }: Props) => {
-  const { allowLike, allowComment } = allowContactInfo;
-  const { likeCount: preLikeCount, commentCount: preCommentCount } =
+  const { allowComment, allowLike } = allowContactInfo;
+  const { commentCount: preCommentCount, likeCount: preLikeCount } =
     contactCountInfo;
 
   return (
-    <PostContactContainer>
+    <PostContactInfoContainerV2>
       <PostContactLikeCp
         allowLike={allowLike}
         prePostLiked={prePostLiked}
@@ -33,27 +38,52 @@ const PostContactCp = ({
         loginCheck={loginCheck}
         postId={postId}
       />
+
       <PostContactCommentCp
         allowComment={allowComment}
         postId={postId}
         preCommentCount={preCommentCount}
       />
-    </PostContactContainer>
+    </PostContactInfoContainerV2>
   );
 };
 
-export default PostContactCp;
-
 /*
+ <PostContactWrapper>
+        {likeClick && allowLike ? (
+          <PostFillLikeIcon onClick={() => setLikeClick(false)} />
+        ) : (
+          <PostLikeIcon onClick={() => setLikeClick(true)} />
+        )}
+        {allowLike && <PostLikeIcon />}
+        <PostContactCountNumber>{likeCount}</PostContactCountNumber>
+      </PostContactWrapper>
+      <PostContactWrapper>
+        {allowComment ? (
+          <PostCommentIcon onClick={onOpen} />
+        ) : (
+          <PostCommentIcon />
+        )}
+        <PostContactCountNumber>{commentCount}</PostContactCountNumber>
+      </PostContactWrapper>
+
+
+
+
+
 
 
 */
 
-const PostContactContainer = styled.div`
-  width: 70px;
-  height: 100%;
+export default PostContactV2Cp;
 
-  @media screen and (max-width: 501px) {
-    display: none;
+const PostContactInfoContainerV2 = styled.div`
+  width: 100%;
+  height: 40px;
+  display: flex;
+  algin-items: center;
+  width: 420px;
+  @media screen and (max-width: 420px) {
+    width: 100%;
   }
 `;

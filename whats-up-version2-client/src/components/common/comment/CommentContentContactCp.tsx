@@ -16,6 +16,7 @@ interface Props {
   content: string;
   hasReplyComments: boolean;
   likeCount: number;
+  contentType: string;
 }
 
 const CommentContentContactCp = ({
@@ -25,6 +26,7 @@ const CommentContentContactCp = ({
   content,
   hasReplyComments: preHasReplyCom,
   likeCount,
+  contentType,
 }: Props) => {
   // const [replyCommentInputOpen, setReplyCommentInputOpen] = useState(false);
 
@@ -47,15 +49,21 @@ const CommentContentContactCp = ({
     <CommentContentContainer>
       <CommentProfileName>{nickname}</CommentProfileName>
       <CommentContent>{content}</CommentContent>
-      <CommentContactCp likeCount={likeCount} commentId={commentId} />
+      <CommentContactCp
+        likeCount={likeCount}
+        commentId={commentId}
+        contentType={contentType}
+      />
       {replyCommentInputOpen && (
         <ReplyCommentInput
           commentId={commentId}
-          contentType="post"
+          contentType={contentType}
           contentId={contentId}
         />
       )}
-      {hasReplyComData && <ReplyCommentOpenCp commentId={commentId} />}
+      {hasReplyComData && (
+        <ReplyCommentOpenCp commentId={commentId} contentType={contentType} />
+      )}
     </CommentContentContainer>
   );
 };
@@ -71,9 +79,9 @@ const CommentProfileName = styled.span`
 
 const CommentContentContainer = styled.div`
   min-height: 40px;
-  min-width: 300px;
   margin-left: 10px;
   margin-top: 7px;
+  flex: 1;
 `;
 
 const CommentContent = styled.span`

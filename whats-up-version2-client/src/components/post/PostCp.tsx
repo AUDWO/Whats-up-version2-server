@@ -2,6 +2,7 @@ import styled from "styled-components";
 import PostContactCp from "./PostContactCp";
 import PostContentInfoCp from "./PostContentInfoCp";
 import { GetPostForm } from "@/types/contentTypes";
+import PostContentCp from "./PostContentCp";
 interface Props {
   postInfo: GetPostForm;
   loginCheck: boolean;
@@ -15,41 +16,38 @@ const PostCp = ({ postInfo, loginCheck }: Props) => {
     allowContactInfo,
     contactCountInfo,
     id: postId,
-    postLiked,
+    likeStatus,
   } = postInfo;
 
   console.log(postInfo, "postInfo");
 
   return (
     <PostContainer>
-      <PostContentInfoCp
-        img={img}
-        mainContent={mainContent}
-        userInfo={User}
-        contactCountInfo={contactCountInfo}
-        allowContactInfo={allowContactInfo}
-      />
+      <PostContentInfoCp img={img} userInfo={User} />
       <PostContactCp
-        postId={postId}
         allowContactInfo={allowContactInfo}
         contactCountInfo={contactCountInfo}
-        postLiked={postLiked}
+        postId={postId}
         loginCheck={loginCheck}
+        postLiked={likeStatus}
       />
+      <PostContentCp nickname={User.nickname} mainContent={mainContent} />
     </PostContainer>
   );
 };
 
 export default PostCp;
 const PostContainer = styled.div`
-  width: 480px;
+  width: 420px;
   height: auto;
   margin-bottom: 100px;
   display: flex;
+  flex-direction: column;
   @media screen and (max-width: 501px) {
     justify-content: center;
+    align-items: center;
     width: 100%;
-    height: 100%;
+    height: auto;
     margin-bottom: 60px;
   }
   position: relative;

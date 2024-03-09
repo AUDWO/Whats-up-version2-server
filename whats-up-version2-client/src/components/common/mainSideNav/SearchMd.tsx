@@ -9,6 +9,8 @@ const SearchMd = () => {
   );
   const searchModalRef = useRef(null);
 
+  const text = "찾고 싶은 사용자를 검색해보세요!";
+
   useOutClickEffect(searchModalRef, () => {
     setSearchModalOpenState(false);
   });
