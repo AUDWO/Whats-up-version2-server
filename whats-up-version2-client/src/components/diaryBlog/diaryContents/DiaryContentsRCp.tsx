@@ -5,20 +5,21 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllDiary } from "@/apis/diaryApis/getApis";
 
 const DiaryContentsRCp = () => {
-  const { data, isLoading } = useQuery({
+  const { data: diaryContents, isLoading } = useQuery({
     queryKey: ["all-diary"],
     queryFn: getAllDiary,
   });
 
+  if (isLoading) {
+  }
+
   return (
     <DiaryContentsContainer>
-      <Link to={`/diary/${1}`}>
-        <DiaryCp />
-      </Link>
-      <DiaryCp />
-      <DiaryCp />
-      <DiaryCp />
-      <DiaryCp />
+      {diaryContents?.map((diary) => (
+        <Link to={`/diary/${diary.id}`}>
+          <DiaryCp diaryInfo={diary} />
+        </Link>
+      ))}
     </DiaryContentsContainer>
   );
 };
@@ -31,10 +32,24 @@ const DiaryContentsContainer = styled.div`
   width: 100%;
   height: auto;
   display: grid;
-  grid-template-columns: repeat(5, 100px);
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  @media screen and (max-width: 770px) {
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  }
   grid-gap: 30px;
+  grid-template-columns: repeat(minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
+  @media screen and (max-width: 1100px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: 750px) {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 500px));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  @media screen and (max-width: 460px) {
+    display: grid;
+    grid-template-columns: repeat(minmax(300px, 1fr));
+  }
 `;
+
+//grid-template-columns: repeat(5, 100px);
+//grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));

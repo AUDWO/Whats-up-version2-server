@@ -1,27 +1,35 @@
+import { GetDiaryForm } from "@/types/contentTypes";
+import dateFormKorean from "@/utils/date/dateFormKorean";
+import BasicProfileImgCp from "@components/profile/BasicProfileImgCp";
 import styled from "styled-components";
-
-const DiaryCp = () => {
+interface Props {
+  diaryInfo: GetDiaryForm;
+}
+const DiaryCp = ({ diaryInfo }: Props) => {
+  const { title, createdAt, commentCount, User, img } = diaryInfo;
   return (
     <DiaryContentContainer>
       <DiaryContentWrapper>
-        <DiaryContentImg
-          src={
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/SV100408.JPG/1200px-SV100408.JPG"
-          }
-        />
+        <DiaryContentImg src={img} />
         <DiaryContentInfoContainer>
           <DiaryContentInfoWrapper>
-            <DiaryTitleText>우리들은 엔지니어이다.</DiaryTitleText>
+            <DiaryTitleText>{title}</DiaryTitleText>
             <DiaryInfoWrapper>
               <DiaryContentCreatedAtText>
-                2024년 2월 21일
+                {dateFormKorean(createdAt)}
               </DiaryContentCreatedAtText>
-              <DiaryCommentCountTitle>14개의 댓글</DiaryCommentCountTitle>
+              <DiaryCommentCountTitle>
+                {commentCount}개의 댓글
+              </DiaryCommentCountTitle>
             </DiaryInfoWrapper>
           </DiaryContentInfoWrapper>
           <DiaryContentProfileWrapper>
-            <DiaryContentProfileImg />
-            <DiaryContentProfileName>peter_09</DiaryContentProfileName>
+            {User.img ? (
+              <DiaryContentProfileImg />
+            ) : (
+              <BasicProfileImgCp width="27px" />
+            )}
+            <DiaryContentProfileName>{User.nickname}</DiaryContentProfileName>
           </DiaryContentProfileWrapper>
         </DiaryContentInfoContainer>
       </DiaryContentWrapper>
@@ -36,6 +44,17 @@ const DiaryContentContainer = styled.div`
   padding-bottom: 120%;
   position: relative;
   box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.04);
+  @media screen and (max-width: 750px) {
+    width: 450px;
+  }
+  @media screen and (max-width: 450px) {
+    width: 100%;
+  }
+`;
+
+const DiarySpace = styled.div`
+  display: none;
+  @media screen and (max-width);
 `;
 
 const DiaryContentWrapper = styled.div`
@@ -102,9 +121,9 @@ const DiaryContentProfileImg = styled.img`
   height: 30px;
   border-radius: 50%;
   background-color: black;
-  margin-right: 10px;
 `;
 
 const DiaryContentProfileName = styled.div`
   color: ${(props) => props.theme.fontColor};
+  margin-left: 10px;
 `;
