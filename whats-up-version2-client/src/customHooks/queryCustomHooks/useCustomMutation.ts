@@ -2,7 +2,6 @@ import {
   useMutation,
   useQueryClient,
   MutationFunction,
-  MutationKey,
 } from "@tanstack/react-query";
 
 const useCustomMutation = <TData, TVariables = undefined>(
@@ -14,6 +13,13 @@ const useCustomMutation = <TData, TVariables = undefined>(
 
   const mutationObj = useMutation({
     mutationFn: (data: TVariables) => queryFn(data),
+    /*
+      if (data !== undefined) {
+        return queryFn(data);
+      } else {
+        return (queryFn as MutationFunction<TData, undefined>)(undefined);
+      }
+      */
     onSuccess: (data) => {
       if (queryKeyArr?.length) {
         queryKeyArr.forEach((queryKey) => {
