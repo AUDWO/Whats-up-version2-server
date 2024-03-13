@@ -9,7 +9,7 @@ interface Props {
 }
 const ReplyCommentOpenCp = ({ commentId, contentType }: Props) => {
   const [replyCommentsOpen, setReplyCommentsOpen] = useRecoilState(
-    toggleState(`replyComments-${contentType}-${commentId}`)
+    toggleState(`replyCommentsOpen-${contentType}-${commentId}`)
   );
 
   return (
@@ -30,6 +30,7 @@ const ReplyCommentOpenWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-top: 7px;
+  padding-left: 10px;
 `;
 
 const ReplyCommentOpenButton = styled.button`

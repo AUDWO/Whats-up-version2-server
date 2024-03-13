@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import CommentProfileCp from "./CommentProfileCp";
-import CommentContentContactCp from "./CommentContentContactCp";
+import CommentContentCp from "./CommentContentCp";
 import CommentLikeCp from "./CommentLikeCp";
 
-import { useRecoilValue } from "recoil";
-import toggleState from "@/store/toggleState";
-import ReplyCommentsRCp from "./replyComment/ReplyCommentsRCp";
 import { GetCommentForm } from "@/types/commentTypes";
+import CommentContactCp from "./CommentContactCp";
+
+import ReplyCommentContactCp from "./ReplyCommentContactCp";
 
 interface Props {
   contentType: string;
@@ -18,38 +18,39 @@ const CommentRCp = ({ contentType, commentInfo, contentId }: Props) => {
     User,
     id: commentId,
     content,
-    hasReplyComments,
+    hasReplyComments: preHasReplyCom,
     likeInfo,
   } = commentInfo;
 
   const { nickname, img } = User;
   const { likeCount, likeStatus } = likeInfo;
-  const replyCommentsOpen = useRecoilValue(
-    toggleState(`replyComments-${contentType}-${commentId}`)
-  );
+
+  console.log(commentInfo, commentId, "commentID");
 
   return (
     <CommentContainer>
-      <CommentWrapper>
-        <CommentProfileCp img={img} />
-        <CommentContentContactCp
-          contentId={contentId}
-          commentId={commentId}
-          nickname={nickname}
-          content={content}
-          hasReplyComments={hasReplyComments}
+      <CommentProfileCp img={img} />
+      <CommentInfoWrapper>
+        <CommentWrapper>
+          <CommentContentCp nickname={nickname} content={content} />
+          <CommentLikeCp
+            commentId={commentId}
+            likeStatus={likeStatus}
+            contentType={contentType}
+          />
+        </CommentWrapper>
+        <CommentContactCp
           likeCount={likeCount}
-          contentType={contentType}
-        />
-        <CommentLikeCp
           commentId={commentId}
-          likeStatus={likeStatus}
           contentType={contentType}
         />
-      </CommentWrapper>
-      {replyCommentsOpen && (
-        <ReplyCommentsRCp contentType={contentType} commentId={commentId} />
-      )}
+        <ReplyCommentContactCp
+          contentType={contentType}
+          commentId={commentId}
+          hasReplyComment={preHasReplyCom}
+          contentId={contentId}
+        />
+      </CommentInfoWrapper>
     </CommentContainer>
   );
 };
@@ -61,10 +62,21 @@ const CommentContainer = styled.div`
   margin-bottom: 40px;
   width: 100%;
   box-sizing: border-box;
+  display: flex;
+`;
+
+const CommentInfoWrapper = styled.div`
+  width: 100%;
 `;
 
 const CommentWrapper = styled.div`
   display: flex;
   width: 100%;
   box-sizing: border-box;
+  height: auto;
+  align-items: center;
+`;
+
+const CommentA = styled.div`
+  border: 1px solid black;
 `;

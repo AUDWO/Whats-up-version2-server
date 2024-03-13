@@ -23,7 +23,7 @@ const ReplyCommentInput = ({ commentId, contentType, contentId }: Props) => {
   );
 
   const setReplyComInputOpen = useSetRecoilState(
-    toggleState(`replyComInputOpen-${commentId}`)
+    toggleState(`replyComInputOpen-${contentType}-${commentId}`)
   );
 
   const { mutate: createReplyComment } = useCustomMutation(postReplyComment, [
@@ -32,10 +32,11 @@ const ReplyCommentInput = ({ commentId, contentType, contentId }: Props) => {
 
   const atLeastContentLength = () => content.length > 1;
 
-  const handlePostReplyComment = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.stopPropagation();
+  const setGetHasReplyInfoEnabledState = useSetRecoilState(
+    toggleState(`getHasReplyInfoEnable-${contentType}-${commentId}`)
+  );
+
+  const handlePostReplyComment = () => {
     if (!atLeastContentLength()) {
       alert("댓글을 입력해주세요!");
       return;
@@ -49,29 +50,32 @@ const ReplyCommentInput = ({ commentId, contentType, contentId }: Props) => {
       setContent("");
       setOnHasReplyComments(true);
       setReplyComInputOpen(false);
+      setGetHasReplyInfoEnabledState(true);
     }
   };
 
   return (
     <InputContainer>
-      <Input
-        readOnly={!myInfo?.loginCheck}
-        placeholder={
-          myInfo?.loginCheck
-            ? "답글을 입력해주세요."
-            : "로그인 후 이용해주세요."
-        }
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        contentType={contentType}
-      />
-      <ReplyCommentPostButton
-        canSubmit={atLeastContentLength()}
-        onClick={handlePostReplyComment}
-        contentType={contentType}
-      >
-        게시
-      </ReplyCommentPostButton>
+      <ReplyCommentInputWrapper>
+        <Input
+          readOnly={!myInfo?.loginCheck}
+          placeholder={
+            myInfo?.loginCheck
+              ? "답글을 입력해주세요."
+              : "로그인 후 이용해주세요."
+          }
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          contentType={contentType}
+        />
+        <ReplyCommentPostButton
+          canSubmit={atLeastContentLength()}
+          onClick={handlePostReplyComment}
+          contentType={contentType}
+        >
+          게시
+        </ReplyCommentPostButton>
+      </ReplyCommentInputWrapper>
     </InputContainer>
   );
 };
@@ -81,13 +85,20 @@ export default ReplyCommentInput;
 const InputContainer = styled.div`
   width: 100%;
   height: 32px;
+  padding-left: 3px;
+  border: 1px solid black;
+`;
+
+const ReplyCommentInputWrapper = styled.div`
+  width: 100%;
+  height: 32px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid ${(props) => props.theme.replyInputBorderColor};
 `;
 
-const ReplyCommentPostButton = styled.button<{
+const ReplyCommentPostButton = styled.div<{
   canSubmit: boolean;
   contentType: string;
 }>`
@@ -101,7 +112,9 @@ const ReplyCommentPostButton = styled.button<{
   cursor: ${(props) => (props.canSubmit ? "pointer" : "")};
   cursor: pointer;
   font-size: 12px;
-  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Input = styled.input<{ contentType: string }>`

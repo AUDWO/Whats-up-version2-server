@@ -1,6 +1,7 @@
 import { getCommentLikeCount } from "@/apis/comment/getApis";
 import { getPostLikeInfo } from "@/apis/postApis/getApis";
 import toggleState from "@/store/toggleState";
+import CommentSetupIcon from "@components/icons/comment/CommentSetupIcon";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useRecoilState } from "recoil";
@@ -22,36 +23,48 @@ const CommentContactCp = ({
   });
 
   const [replyComInputOpen, setReplyComInputOpen] = useRecoilState(
-    toggleState(`replyComInputOpen-${commentId}`)
+    toggleState(`replyComInputOpen-${contentType}-${commentId}`)
   );
 
   const likeCountData = likeInfo?.likeCount || preLikeCount;
 
   return (
     <CommentContactWrapper>
-      <CommentLikeText>좋아요</CommentLikeText>
-      <CommentLikeCountNumber>{likeCountData}</CommentLikeCountNumber>
-      {replyComInputOpen ? (
-        <ReplyCommentInputOpenButton
-          onClick={() => setReplyComInputOpen(false)}
-        >
-          취소
-        </ReplyCommentInputOpenButton>
-      ) : (
-        <ReplyCommentInputOpenButton onClick={() => setReplyComInputOpen(true)}>
-          답글 달기
-        </ReplyCommentInputOpenButton>
-      )}
+      <CommentContactInfoWrapper>
+        <CommentLikeText>좋아요</CommentLikeText>
+        <CommentLikeCountNumber>{likeCountData}</CommentLikeCountNumber>
+        {replyComInputOpen ? (
+          <ReplyCommentInputOpenButton
+            onClick={() => setReplyComInputOpen(false)}
+          >
+            취소
+          </ReplyCommentInputOpenButton>
+        ) : (
+          <ReplyCommentInputOpenButton
+            onClick={() => setReplyComInputOpen(true)}
+          >
+            답글 달기
+          </ReplyCommentInputOpenButton>
+        )}
+      </CommentContactInfoWrapper>
+      <CommentSetupIcon />
     </CommentContactWrapper>
   );
 };
 
 export default CommentContactCp;
 
+const CommentContactInfoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const CommentContactWrapper = styled.div`
   display: flex;
   margin-top: 8px;
   align-items: center;
+  justify-content: space-between;
+  padding-left: 10px;
 `;
 
 const CommentLikeText = styled.div`

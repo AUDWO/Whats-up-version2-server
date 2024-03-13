@@ -8,9 +8,10 @@ interface Props {
 }
 const ReplyCommentsRCp = ({ contentType, commentId }: Props) => {
   const { data: replyComments, isLoading } = useQuery({
-    queryKey: [`${contentType}replyComments`],
+    queryKey: [`replyComments-${contentType}-${commentId}`],
     queryFn: () => getReplyComments(commentId, contentType),
   });
+
   if (isLoading) {
     return <Loading>안녕</Loading>;
   }
